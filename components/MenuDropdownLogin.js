@@ -15,7 +15,7 @@ function MenuDropdownLogin() {
           <p>Login using github</p>
           <button 
             type="button"
-            className="p-2 flex gap-2 justify-center items-center rounded-md border-transparent w-full border-2 text-[#5965E0] border-[#5965E0] hover:bg-[#5965E0] hover:text-dark-text"
+            className="p-2 flex gap-2 justify-center items-center rounded-md border-transparent w-full border-2 text-[#6772E5] border-[#6772E5] hover:bg-[#6772E5] hover:text-dark-text"
             onClick={() => {}}
           >
           <AiFillGithub size={20}/>
