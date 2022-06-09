@@ -18,3 +18,20 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.slick-prev:before {
+  color: #6772E5;
+}
+.slick-next:before {
+  color: #6772E5;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #6772E5;
+}
+
+.slick-dots li button:before {
+  color: #6772E5;
+}
+
+
