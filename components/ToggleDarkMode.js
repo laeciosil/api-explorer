@@ -30,7 +30,7 @@ function ToggleDarkMode() {
           justifyContent: "center",
           alignItems: "center",
           height: "100%",
-          color: "orange",
+          color: "white",
           fontSize: 20,
           paddingRight: 2
         }}
@@ -38,8 +38,8 @@ function ToggleDarkMode() {
         <Moon weight="fill"/>
       </div>
     }
-    onColor={'#5965E0'}
-    offColor={'#5965E0'}
+    onColor={'#6772E5'}
+    offColor={'#6772E5'}
   />
   );
 }
