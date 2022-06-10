@@ -5,7 +5,7 @@ const RATING = 4;
 function CardApi() {
   return (
     <div className="mr-2 p-4 bg-light-primary rounded-md dark:bg-dark-primary shadow-lg ring-1 ring-black ring-opacity-5 space-y-1">
-      <h2 className="text-lg font-bold">Nome da API</h2>
+      <h2 className="text-lg font-bold text-light-text dark:text-dark-text">Nome da API</h2>
       <p className="text-[#979899] text-base">Descrição breve do que faz a api e como funciona.</p>
       <div className="flex justify-between items-center">
         <span className="bg-light-secondary px-1 rounded-md text-xs text-dark-text">Categoria</span>
