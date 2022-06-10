@@ -10,7 +10,7 @@ function Logo() {
       onClick={() =>  router.push('/')}
     >
       <img src='images/file.svg' alt="Logo composto pelo ícone de um arquivo"/>
-      <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-dark-text">ApiExplorer</span>
+      <span className="self-center text-2xl font-bold whitespace-nowrap text-light-text dark:text-dark-text">ApiExplorer</span>
   </button>
   );
 }
