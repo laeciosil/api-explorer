@@ -1,22 +1,11 @@
 import { CaretDown } from "phosphor-react";
 import { Popover } from '@headlessui/react';
-
-const categories = [
-  { 
-    id: 1,
-    name:'Animals'
-  },
-  { 
-    id: 2,
-    name:'Animes'
-  },
-  { 
-    id: 3,
-    name:'Games'
-  },
-];
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 function MenuDropdownCategories() {
+  const {categories} = useContext(AppContext);
+
   return (
     <Popover className="relative text-base">
       <Popover.Button className="flex items-center gap-1 hover:text-light-secondary">
@@ -24,14 +13,14 @@ function MenuDropdownCategories() {
         <CaretDown />
       </Popover.Button>
       <Popover.Panel className="absolute z-10">
-        <div className="flex flex-col w-44  bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-        {categories.map((item) => (
+        <div className="flex flex-col w-44  bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 overflow-auto h-56">
+        {categories.map((category) => (
           <a
-            key={item.name}
+            key={category.id}
             href='#'
-            className="flex items-center py-2 pl-3 pr-4 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="flex items-center py-2 pl-3 pr-4 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 snap-start"
           >
-            {item.name}
+            {category.name}
           </a>
         ))}
         </div>

@@ -5,7 +5,7 @@ import NewApiForm from './NewApiForm';
 
 
 export default function NewApiModal() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
