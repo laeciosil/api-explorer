@@ -1,28 +1,30 @@
-import { createContext, useContext, useState } from 'react';
-import jwt from 'jsonwebtoken';
+import { createContext, useContext, useState } from "react";
+import jwt from "jsonwebtoken";
+import { api } from "../services";
 
 export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
-  const [userData, setUser] = useState([]);
-  
+  const [user, setUser] = useState(null);
+  const getJWTToken = async (access_token) => {
+    if (!user) {
+      const response = await api.get(
+        `/users/login/get-user-data?access_token=${access_token}`
+      );
 
-  const dataUser = (token) => {
+      const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
+      localStorage.setItem("apiExplorer:user", JSON.stringify(response.data));
+      const { user } = jwt.verify(response.data.jwt_token, secret);
+      setUser(user);
+    }
+  };
 
-    const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
-  
-    const { user } = jwt.verify(token, secret);
-    
-    setUser(user);
-  }
-
-  
   return (
     <UserContext.Provider
-      value={ {
-        dataUser,
-        userData,
-      } }
+      value={{
+        getJWTToken,
+        user,
+      }}
     >
       {children}
     </UserContext.Provider>
@@ -33,4 +35,3 @@ export function useUser() {
   const context = useContext(UserContext);
   return context;
 }
-
