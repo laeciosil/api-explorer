@@ -5,7 +5,7 @@ import { X } from "phosphor-react";
 
 
 export default function EvaluationModal() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);

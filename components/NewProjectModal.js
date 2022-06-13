@@ -5,7 +5,7 @@ import NewProjectForm from './NewProjectForm';
 
 
 export default function NewProjectModal() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
