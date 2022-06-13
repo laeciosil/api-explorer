@@ -1,8 +1,22 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Carousel from '../components/Carousel';
 import { Avatar } from 'flowbite-react';
+import { PencilSimple, X } from "phosphor-react";
+
+const api = [
+  {
+    name: 'Nome da api',
+    categoria: 'anime',
+    date: '11/06/2022'
+  },
+  {
+    name: 'Nome da api do projeto',
+    categoria: 'anime',
+    date: '11/06/2022'
+  }
+]
 import NewApiModal from '../components/NewApiModal';
+import DeleteApiModal from '../components/DeleteApiModal';
 
 export default function Home() {
   return (
@@ -32,7 +46,21 @@ export default function Home() {
             <h2 className="font-bold text-xl">Suas {`api's`}:</h2>
             <NewApiModal />
           </div>
-          
+          {api.map((item, index) => (
+            <div key={index} className="w-full grid grid-cols-3 md:grid-cols-4 gap-4 items-center  bg-light-primary dark:bg-dark-primary p-5 rounded-md">
+              <h3>{item.name}</h3>
+              <p className='text-center md:col-span-2'>{item.date}</p>
+              <div className='flex items-center gap-3 justify-end'>
+                <button 
+                  type='button' 
+                  className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
+                >
+                  <PencilSimple weight='bold'/>
+                </button>
+                <DeleteApiModal />
+              </div>
+            </div>
+          ))}
         </section>
       </section>
     </main>
