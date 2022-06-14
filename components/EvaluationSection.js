@@ -22,7 +22,7 @@ const STAR_NUMBER = 5;
 function EvaluationSection() {
   return (
     <section className="w-full flex flex-col justify-center items-center space-y-5">
-        <h2 className="w-full border-b-[1px] font-bold text-xl">Avaliações</h2>
+        <h2 className="w-full border-b-[1px] pb-1 dark:border-gray-700 font-bold text-xl">Avaliações</h2>
         <div className="w-full flex items-center">
           <div className="space-y-3 grow">
             <p className="text-6xl font-bold">{evaluations.lenght !== 0 ? `${evaluations[0].rating}.0` : '0.0'}</p>
@@ -38,7 +38,7 @@ function EvaluationSection() {
         ) : (
           <div className="w-full flex flex-col gap-4">
             {evaluations.map((evaluation) => (
-              <div key={ evaluation.id } className="flex items-center justify-between bg-light-primary dark:bg-dark-primary p-5 rounded-md">
+              <div key={ evaluation.id } className="flex items-center justify-between bg-light-primary dark:bg-dark-primary p-5 rounded-md shadow-md ring-1 ring-black ring-opacity-5">
                 <div className="grow space-y-3">
                   <p className="text-base">{evaluation.message}</p>
                   <p className="text-sm text-[#979899] font-bold">{`${evaluation.name} em ${evaluation.date}`}</p>

@@ -1,10 +1,10 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Carousel from '../components/Carousel';
-
+import { Widget } from '../components/FeedbackWidget/Widget';
 export default function Home() {
   return (
-    <div className='flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden'>
+    <div className='flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden scrollbar-thumb-zinc-400 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin'>
       <Header />
       <main className='w-full grow flex items-center justify-center relative h-screen bg-light-background dark:bg-dark-background'>
         <section className='w-[calc(100vw-2rem)] md:w-[48rem] space-y-10 flex flex-col justify-center items-center'>
@@ -16,6 +16,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <Widget />
       <Footer />
     </div>
   )

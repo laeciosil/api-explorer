@@ -9,11 +9,11 @@ function MenuDropdownCategories() {
   return (
     <Popover className="relative text-base">
       <Popover.Button className="flex items-center gap-1 hover:text-light-secondary">
-        Categories
+        Categorias
         <CaretDown />
       </Popover.Button>
       <Popover.Panel className="absolute z-10">
-        <div className="flex flex-col w-44  bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 overflow-auto h-56">
+        <div className="flex flex-col w-44 bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 overflow-auto h-56 scrollbar-thumb-zinc-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent scrollbar-thin">
         {categories.map((category) => (
           <a
             key={category.id}
