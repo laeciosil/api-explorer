@@ -37,7 +37,7 @@ export default function EvaluationModal() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-[#888A93] bg-opacity-60 dark:bg-[#121727] dark:bg-opacity-60" />
+            <div className="fixed inset-0 bg-[#888A93] bg-opacity-60 dark:bg-[#121727] dark:bg-opacity-80" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -51,11 +51,10 @@ export default function EvaluationModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-light-primary dark:bg-[#374151] p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-light-primary dark:bg-dark-primary p-5 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="flex items-center justify-between text-lg font-bold leading-6 text-light-text
-                    dark:text-dark-text"
+                    className="flex items-center justify-between text-lg font-bold leading-6 text-light-text dark:text-dark-text"
                   >
                     Avaliação
                     <button
@@ -73,7 +72,7 @@ export default function EvaluationModal() {
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium  hover:bg-[#44419D] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium  hover:bg-[#737eff] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       Adicionar
