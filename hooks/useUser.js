@@ -11,15 +11,16 @@ export function UserProvider({ children }) {
   const router = useRouter();
 
   const validateToken = async (token) => {
+
     const { exp } = jwt.decode(token);
-   
-    if ( exp && exp < Date.now() / 1000) {
+
+    if (exp && exp < Date.now() / 1000) {
       router.push(process.env.NEXT_PUBLIC_REDIRECT_URL);
     }
   };
 
   const getApis = async (token) => {
-    await validateToken(token );
+    await validateToken(token);
 
     const response = await api.get("/apis/by-user", {
       headers: {
