@@ -1,23 +1,39 @@
 import { useContext } from 'react';
 import CardApi from '../components/CardApi';
 import { AppContext } from '../context/AppContext';
+import { Loading } from './Loading';
 
 function CardsWrapper() {
-  const {byName, setByName} = useContext(AppContext);
-  const {apis} = useContext(AppContext);
-  const filterByName = () => {
-    const arr = apis.filter(api => api.name.includes(byName));
-    return arr;
+  const {filterAPi, apis, isLoading} = useContext(AppContext);
+  function filteredApi () {
+    if(!filterAPi.type) return apis;
+    const newArr = apis.filter(obj => {
+      const key = obj[filterAPi.type].toLowerCase();
+      return key.includes(filterAPi.value.toLowerCase())
+    });
+    return newArr;
   }
   return (
-    <section className='col-span-3'>
-      <div 
-        className='grid grid-cols-3 gap-6'>
-        {filterByName().map((api) => <div key={api.id} className='hover:scale-105 transition-all cursor-pointer'>
-          <CardApi api={api} />
-      </div>)}
-      </div>
-    </section>
+    <div className='col-span-3 space-y-8 pt-4'>
+      {isLoading ? <Loading /> : (
+        <>
+          <div>
+            {!filterAPi.value ? (
+              <h3 className="font-bold text-lg text-[#979899]">Todas as {"api's"}:</h3>
+            ) : <h3 className="font-normal text-lg text-[#979899]">Resultados para:  
+              <span className="font-bold text-lg text-[#979899]"> {filterAPi.value}</span></h3>}
+          </div>
+          <section>
+            <div 
+              className='grid grid-cols-3 gap-6'>
+              {filteredApi().map((api) => <div key={api.id} className='hover:scale-105 transition-all cursor-pointer'>
+                <CardApi api={api} />
+            </div>)}
+            </div>
+          </section>
+        </>
+      )}
+    </div>
   );
 }
 
