@@ -1,11 +1,12 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react";
 import { AppContext } from "./AppContext";
-
+import jwt from 'jsonwebtoken';
 
 function AppProvider({children}) {
   const [] = useState();
   const [categories, setCategories] = useState([]);
+  
 
   useEffect(() => {
     async function fecthCategories() {
@@ -18,6 +19,7 @@ function AppProvider({children}) {
   const state = {
     categories,
   };
+  
   return (
     <AppContext.Provider value={state}>
       {children}
