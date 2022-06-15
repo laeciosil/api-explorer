@@ -1,9 +1,9 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import Carousel from "../../components/Carousel";
 import EvaluationSection from "../../components/EvaluationSection";
 import NewProjectModal from "../../components/NewProjectModal";
 import { Widget } from "../../components/FeedbackWidget/Widget";
+import CarouselProject from "../../components/CarouselProject";
 
 function ApiDetails() {
   return (
@@ -21,7 +21,7 @@ function ApiDetails() {
               <div className='pt-4'>
                 <div className='space-y-1'>
                   <h3 className="text-[#979899] font-bold text-sm">Repositorio</h3>
-                  <p>github.com/thiagodanobrega</p>
+                  <p className="cursor-pointer">github.com/thiagodanobrega</p>
                 </div>  
               </div>
               <div className='pt-4'>
@@ -36,11 +36,11 @@ function ApiDetails() {
 
         <section className="w-full flex flex-col justify-center items-center space-y-5">
           <div className="w-full flex items-center justify-between border-b-[1px] pb-1 dark:border-gray-700">
-            <h2 className="font-bold text-xl">Projetos que usaram a api</h2>
+            <h2 className="font-bold text-xl">Projetos que usam a api</h2>
             <NewProjectModal />
           </div>
           <div className='w-[calc(100%-3rem)]'>
-            <Carousel />
+            <CarouselProject />
           </div>
         </section>
         <EvaluationSection />
