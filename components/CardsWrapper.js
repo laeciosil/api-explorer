@@ -29,7 +29,7 @@ function CardsWrapper() {
               {filteredApi().length === 0 ? (<p className='col-span-3 text-base text-center'>Nenhum resultado encontrado.</p>) : (
                 filteredApi().map((api) => (
                   <div key={api.id} className='hover:scale-105 transition-all cursor-pointer'>
-                    <CardApi api={api} />
+                    <CardApi api={api} numberLength={30}/>
                   </div>
                 )))
               }
