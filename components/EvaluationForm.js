@@ -1,30 +1,33 @@
 import { Star } from "phosphor-react";
-const rating = 5;
+import { useState } from "react";
+import { RadioGroup } from '@headlessui/react'
+
 const STAR_NUMBER = 5;
+
 function EvaluationForm() {
+  const [rating, setRating] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleChangeMessage = ({ target: { value } }) => {
+    setMessage(value);
+  }
+
   return (
     <form className="w-full flex flex-col gap-4">
       <div className="flex">
         {[...Array(STAR_NUMBER)].map((_, index) => {
           const ratingValue = index + 1;
           return (
-            <label
-              htmlFor={ `${ratingValue}-rating` }
-              key={ `${ratingValue}-rating` }
-            >
-              <input
-                id={ `${ratingValue}-rating` }
-                type="radio"
-                name="rating"
-                className="hidden"
-                value={ ratingValue }
-                onClick={() => {}}
-              />
-              <Star
-                weight="fill"
-                color={ ratingValue <= rating ? '#ffc107' : '#e4e5e9' }
-              />
-            </label>
+            <RadioGroup value="rating" onChange={setRating} key={index}>
+              <RadioGroup.Option value={ ratingValue }>
+                <Star
+                  weight="fill"
+                  size={20}
+                  color={ ratingValue <= rating ? '#ffc107' : '#e4e5e9' }
+                  className="cursor-pointer"
+                />
+              </RadioGroup.Option>
+            </RadioGroup>
           );
         })}
       </div>
@@ -33,7 +36,7 @@ function EvaluationForm() {
         placeholder="Escreva sua mensagem"
         className="h-28 p-3 rounded-md bg-light-primary dark:bg-dark-primary focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none scrollbar-thumb-zinc-300 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin"
         name="message"
-        onChange={() => {}}
+        onChange={ handleChangeMessage }
       />
     </form>
   );
