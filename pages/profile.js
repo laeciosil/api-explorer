@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 export default function Home() {
   const { data: session } = useSession();
   const { user, apis } = useUser();
-  const router = useRouter()
+  const router = useRouter();
   const logout = async () => {
     await router.push("/");
     signOut();
