@@ -26,9 +26,13 @@ function CardsWrapper() {
           <section>
             <div 
               className='grid grid-cols-3 gap-6'>
-              {filteredApi().map((api) => <div key={api.id} className='hover:scale-105 transition-all cursor-pointer'>
-                <CardApi api={api} />
-            </div>)}
+              {filteredApi().length === 0 ? (<p className='col-span-3 text-base text-center'>Nenhum resultado encontrado.</p>) : (
+                filteredApi().map((api) => (
+                  <div key={api.id} className='hover:scale-105 transition-all cursor-pointer'>
+                    <CardApi api={api} />
+                  </div>
+                )))
+              }
             </div>
           </section>
         </>
