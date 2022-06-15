@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 
 function AppProvider({children}) {
   const [apis, setApis] = useState([]);
+  const [editApi, setEditApi] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [filterAPi, setFilterAPi] = useState({});
@@ -38,6 +39,8 @@ function AppProvider({children}) {
     isOpenApiModal,
     setIsOpenApiModal,
     isLoading,
+    editApi,
+    setEditApi,
   };
   
   return (

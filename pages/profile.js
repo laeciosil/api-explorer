@@ -1,12 +1,12 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Avatar } from "flowbite-react";
-import { PencilSimple, X } from "phosphor-react";
 import { useSession, signOut } from "next-auth/react";
 import NewApiModal from "../components/NewApiModal";
 import { Widget } from '../components/FeedbackWidget/Widget';
 import { useUser } from "../hooks/useUser";
 import { useRouter } from "next/router";
+import EditApiModal from "../components/EditApiModal";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -42,16 +42,11 @@ export default function Home() {
               <NewApiModal />
             </div>
             {apis.map((item, index) => (
-            <div key={index} className="w-full grid grid-cols-3 md:grid-cols-4 gap-4 items-center  bg-light-primary dark:bg-dark-primary p-5 rounded-md">
+            <div key={index} className="w-full grid grid-cols-3 md:grid-cols-4 gap-4 items-center bg-light-primary dark:bg-dark-primary p-5 rounded-md shadow-md ring-1 ring-black ring-opacity-5">
               <h3>{item.name}</h3>
-              <p className='text-center md:col-span-2'>{item.date}</p>
+              <p className='text-center md:col-span-2 text-[#979899]'>{item.category}</p>
               <div className='flex items-center gap-3 justify-end'>
-                <button 
-                  type='button' 
-                  className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
-                >
-                  <PencilSimple weight='bold'/>
-                </button>
+                <EditApiModal obj={item}/>
               </div>
             </div>
           ))}
