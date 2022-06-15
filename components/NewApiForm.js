@@ -10,7 +10,7 @@ function NewApiForm(props) {
       <label forHtml="url" className="flex flex-col gap-2">Endereço do repositório:
         <input
           type="url"
-          placeholder="https://example.com"
+          placeholder="https://github.com/user/repo"
           pattern="https://.*"
           className="h-10 p-3 rounded-md bg-light-primary dark:bg-dark-primary focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none text-light-text dark:text-dark-text"
           value={editApi.url_repo}
