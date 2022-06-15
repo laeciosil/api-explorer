@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 function MenuDropdownLogin() {
   const router = useRouter()
   const { data: session } = useSession();
-
+  // const  jwt = JSON.parse(localStorage.getItem("apiExplorer:user"))
   const login = async() => {
     if(session) {
        await router.push('/')
@@ -16,7 +16,7 @@ function MenuDropdownLogin() {
       signIn()
     }
   };
-
+  // console.log(jwt);
   const { getJWTToken } = useUser();
 
   if (session) {

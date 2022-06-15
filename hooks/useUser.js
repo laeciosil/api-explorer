@@ -8,6 +8,7 @@ export const UserContext = createContext({});
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [apis, setApis] = useState([]);
+  const [token, setToken] = useState('');
   const router = useRouter();
 
   const validateToken = async (token) => {
@@ -40,6 +41,7 @@ export function UserProvider({ children }) {
       localStorage.setItem("apiExplorer:user", JSON.stringify(response.data));
       const { user } = jwt.verify(response.data.jwt_token, secret);
       setUser(user);
+      setToken(response.data.jwt_token);
       if (response.data.jwt_token) {
         getApis(response.data.jwt_token);
       }
@@ -50,8 +52,10 @@ export function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         getJWTToken,
+        getApis,
         user,
         apis,
+        token,
       }}
     >
       {children}

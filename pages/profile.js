@@ -23,7 +23,7 @@ export default function Home() {
       <main className="w-full grow flex items-start justify-center relative bg-light-background dark:bg-dark-background">
         <section className="container w-[calc(100vw-2rem)] md:w-[56rem] my-9 space-y-5 flex flex-col justify-center items-center">
           <section>
-            <Avatar rounded={true} stacked={true} size="xl">
+            <Avatar img={user && user.profile} rounded={true} stacked={true} size="xl">
               <div className="space-y-3 font-medium dark:text-white">
                 <h2 className="text-4xl">{user && user.name}</h2>
                 <button

@@ -1,11 +1,18 @@
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
 import { X } from "phosphor-react";
-import NewApiForm from './NewApiForm';
-
+import NewApiForm from "./NewApiForm";
+import { api } from "../services";
+import { useUser } from "../hooks/useUser";
+import { toast } from 'react-toastify';
 
 export default function NewApiModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const { token, getApis } = useUser();
+
+  const [url, setUrl] = useState("");
+  const [category, setCategory] = useState("Anime");
+  const [description, setDescription] = useState("");
 
   function closeModal() {
     setIsOpen(false);
@@ -13,6 +20,30 @@ export default function NewApiModal() {
 
   function openModal() {
     setIsOpen(true);
+  }
+
+  async function handleAddApi() {
+    const theme = localStorage.getItem("theme") || "light";
+    try {
+
+      const response = await api.post(
+        "/apis",
+        { url, category, description },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 201) {
+        await getApis(token);
+        toast.success("API adicionada com sucesso!", { theme });
+        closeModal();
+      }
+    } catch (error) {
+      toast.error(error.response.data.message,  { theme });
+
+    }
   }
 
   return (
@@ -24,7 +55,6 @@ export default function NewApiModal() {
       >
         + add api
       </button>
-  
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -63,18 +93,22 @@ export default function NewApiModal() {
                       onClick={closeModal}
                       className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
                     >
-                      <X weight='bold'/>
+                      <X weight="bold" />
                     </button>
                   </Dialog.Title>
                   <div className="mt-2">
-                    <NewApiForm />
+                    <NewApiForm
+                      setCategory={setCategory}
+                      setDescription={setDescription}
+                      setUrl={setUrl}
+                    />
                   </div>
 
                   <div className="mt-4">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium  hover:bg-[#44419D] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={handleAddApi}
                     >
                       Adicionar
                     </button>
@@ -86,5 +120,5 @@ export default function NewApiModal() {
         </Dialog>
       </Transition>
     </>
-  )
+  );
 }
