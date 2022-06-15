@@ -5,13 +5,21 @@ import { Widget } from '../components/FeedbackWidget/Widget';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useSession, signIn } from 'next-auth/react';
 export default function Home() {
   const { setIsOpenApiModal } = useContext(AppContext);
+  const { data: session } = useSession();
   const router = useRouter();
+
   function redirectProfile () {
-    setIsOpenApiModal(true);
-    router.push('/profile');
+    if (session) {
+      setIsOpenApiModal(true);
+      router.push('/profile');
+    } else {
+      signIn();
+    }
   }
+  
   return (
     <div className='flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden scrollbar-thumb-zinc-400 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin'>
       <Header />
