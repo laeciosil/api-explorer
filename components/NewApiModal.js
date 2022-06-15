@@ -23,6 +23,7 @@ export default function NewApiModal() {
 
   async function handleAddApi() {
     const theme = localStorage.getItem("theme") || "light";
+    toast.info("Aguarde...", { theme, autoClose: 500 });
     try {
       const response = await api.post(
         "/apis",
