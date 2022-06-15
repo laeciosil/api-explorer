@@ -4,9 +4,12 @@ import { AppContext } from "./AppContext";
 import jwt from 'jsonwebtoken';
 
 function AppProvider({children}) {
-  const [] = useState();
+  const [apis, setApis] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  
+  const [filterAPi, setFilterAPi] = useState({});
+  const [isOpenApiModal, setIsOpenApiModal] = useState(false);
+
 
   useEffect(() => {
     async function fecthCategories() {
@@ -16,8 +19,25 @@ function AppProvider({children}) {
     }
     fecthCategories();
   }, []);
+
+  useEffect(() => {
+    async function fecthApis() {
+      setIsLoading(true);
+      const response = await fetch('https://apibr.herokuapp.com/apis');
+      const result = await response.json();
+      setIsLoading(false);
+      return setApis(result);
+    }
+    fecthApis();
+  }, []);
   const state = {
     categories,
+    apis,
+    filterAPi,
+    setFilterAPi,
+    isOpenApiModal,
+    setIsOpenApiModal,
+    isLoading,
   };
   
   return (
