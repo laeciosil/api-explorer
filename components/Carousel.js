@@ -51,7 +51,7 @@ export default function Carousel () {
     };
   return (
     <Slider {...settings}>
-      {apis.map(api => <div key={api}>
+      {apis && apis.map(api => <div key={api}>
         <CardApi api={api}/>
       </div>)}
     </Slider>
