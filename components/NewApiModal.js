@@ -5,20 +5,22 @@ import NewApiForm from "./NewApiForm";
 import { api } from "../services";
 import { useUser } from "../hooks/useUser";
 import { toast } from 'react-toastify';
+import { AppContext } from "../context/AppContext";
+import { useContext } from "react";
 
 export default function NewApiModal() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpenApiModal, setIsOpenApiModal } = useContext(AppContext);
   const { token, getApis } = useUser();
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState("Anime");
   const [description, setDescription] = useState("");
 
   function closeModal() {
-    setIsOpen(false);
+    setIsOpenApiModal(false);
   }
 
   function openModal() {
-    setIsOpen(true);
+    setIsOpenApiModal(true);
   }
 
   async function handleAddApi() {
@@ -53,7 +55,7 @@ export default function NewApiModal() {
         + add api
       </button>
 
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpenApiModal} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
