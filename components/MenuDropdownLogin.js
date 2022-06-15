@@ -3,10 +3,13 @@ import { Popover } from "@headlessui/react";
 import { AiFillGithub } from "react-icons/ai";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useUser } from "../hooks/useUser";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+
+
 function MenuDropdownLogin() {
   const router = useRouter()
   const { data: session } = useSession();
+  const { user } = useUser();
   // const  jwt = JSON.parse(localStorage.getItem("apiExplorer:user"))
   const login = async() => {
     if(session) {
@@ -16,7 +19,12 @@ function MenuDropdownLogin() {
       signIn()
     }
   };
-  // console.log(jwt);
+
+  const logout = async () => {
+    await router.push("/");
+    signOut();
+  };
+
   const { getJWTToken } = useUser();
 
   if (session) {
@@ -35,20 +43,39 @@ function MenuDropdownLogin() {
         ) : (
           <UserCircle size={30} weight="light" />
         )}
-        Login
+          {!user ? 'Login' : user.name}
         <CaretDown />
       </Popover.Button>
       <Popover.Panel className="absolute z-10">
-        <div className="flex flex-col justify-center items-center w-56 h-40 space-y-2 bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md p-4 shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-          <p className="text-center">Faça o login com o github</p>
-          <a
-            className="p-2 flex gap-2 justify-center items-center rounded-md border-transparent w-full border-2 text-[#6772E5] border-[#6772E5] hover:bg-[#6772E5] hover:text-dark-text"
-            href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`}
-          >
-            <AiFillGithub size={20} />
-            GITHUB
-          </a>
-        </div>
+      {!user ? (
+            <div className="flex flex-col h-full space-y-2 justify-center items-center w-56 h-40 bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md p-4 shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+              <p className="text-center">Faça o login com o github</p>
+              <a
+                className="p-2 flex gap-2 justify-center items-center rounded-md border-transparent w-full border-2 text-[#6772E5] border-[#6772E5] hover:bg-[#6772E5] hover:text-dark-text"
+                href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`}
+              >
+                <AiFillGithub size={20} />
+                GITHUB
+              </a>
+            </div>
+          ) : (
+            <div className="flex flex-col w-32 bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 overflow-auto">
+              <button
+                type="button"
+                className="flex items-center w-full py-2 pl-3 pr-4 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 snap-start"
+                onClick={() => router.push('/profile')}
+              >
+                Perfil
+              </button>
+              <button
+                type="button"
+                className="flex items-center w-full py-2 pl-3 pr-4 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 snap-start"
+                onClick={logout}
+              >
+                Sair
+              </button>
+            </div>
+          )}
       </Popover.Panel>
     </Popover>
   );
