@@ -1,13 +1,12 @@
 import { Star } from "phosphor-react";
 const STAR_NUMBER = 5;
-const NUMBER_LENGTH = 24;
 
-function CardApi({api}) {
+function CardApi({api, numberLength}) {
   return (
-    <div className="mr-2 p-3 bg-light-primary rounded-md dark:bg-dark-primary shadow-lg ring-1 ring-black ring-opacity-5 space-y-1">
+    <div className="mr-2 p-3 bg-light-primary rounded-md dark:bg-dark-primary shadow-lg ring-1 ring-black ring-opacity-5 space-y-2">
       <h2 className="text-lg font-bold text-light-text dark:text-dark-text">{api.name}</h2>
       <p className="text-[#979899] text-base">
-        {api.description.length > NUMBER_LENGTH ? `${api.description.slice(0, NUMBER_LENGTH)}...` : api.description}
+        {api.description.length > numberLength ? `${api.description.slice(0, numberLength)}...` : api.description}
       </p>
       <div className="flex justify-between items-center">
         <span className="bg-light-secondary px-1 rounded-md text-xs text-dark-text">{api.category}</span>
