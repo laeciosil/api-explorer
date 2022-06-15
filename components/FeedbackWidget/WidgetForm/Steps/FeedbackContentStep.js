@@ -1,6 +1,8 @@
 import { ArrowLeft } from "phosphor-react";
 import { useState } from "react";
 import { feedbackTypes } from "..";
+import { useUser } from "../../../../hooks/useUser";
+import { api } from "../../../../services";
 import { CloseButton } from "../../CloseButton";
 
 export function FeedbackContentStep({
@@ -8,12 +10,29 @@ export function FeedbackContentStep({
   onFeedbackRestartRequested, 
   onFeedbackSent,
 }) {
-  const [comment, setComment] = useState('');
+  const [message, setMessage] = useState('');
   const feedbackTypeInfo = feedbackTypes.find(obj => obj.type === feedbackType);
+  const { token } = useUser();
 
-  function handleSubmitFeedback(event) {
+  async function handleSubmitFeedback(event) {
     event.preventDefault();
-    onFeedbackSent();
+    try {
+      console.log(token);
+      const response = await api.post(
+        "/feedbacks",
+        { message},
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 201) {
+        onFeedbackSent();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -41,13 +60,13 @@ export function FeedbackContentStep({
         <textarea
           className="min-w-[304px] w-full min-h-[112px] text-sm placeholder-[#979899] text-light-text dark:text-dark-text border-zinc-600 bg-transparent rounded-md focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none scrollbar-thumb-zinc-300 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin"
           placeholder="Escreva sua mensagem..."
-          onChange={event => setComment(event.target.value)}
+          onChange={({target}) => setMessage(target.value)}
         />
         <footer className="flex gap-2 mt-2">
           <button
             type="button"
             className="p-2 text-dark-text bg-dark-secondary rounded-md border-transparent flex-1 flex justify-center items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
-            disabled={comment.length === 0 ? true : false}
+            disabled={message.length === 0 ? true : false}
             onClick={handleSubmitFeedback}
           >
             Enviar feedback
