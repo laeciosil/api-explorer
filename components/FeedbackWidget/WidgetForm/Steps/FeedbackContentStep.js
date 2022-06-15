@@ -4,6 +4,7 @@ import { feedbackTypes } from "..";
 import { useUser } from "../../../../hooks/useUser";
 import { api } from "../../../../services";
 import { CloseButton } from "../../CloseButton";
+import { toast } from 'react-toastify';
 
 export function FeedbackContentStep({
   feedbackType, 
@@ -16,22 +17,29 @@ export function FeedbackContentStep({
 
   async function handleSubmitFeedback(event) {
     event.preventDefault();
+    const theme = localStorage.getItem("theme") || "light";
     try {
-      console.log(token);
-      const response = await api.post(
-        "/feedbacks",
-        { message},
+     if(token) {
+      await api.post(
+        "/feedbacks/authenticated",
+        { message, feedback_type: feedbackTypeInfo.type },
         {
           headers: {
             Authorization: `bearer ${token}`,
           },
         }
       );
-      if (response.status === 201) {
-        onFeedbackSent();
-      }
+      onFeedbackSent();
+     } else {
+      await api.post(
+        "/feedbacks",
+        { message, feedback_type: feedbackTypeInfo.type },
+      );
+      onFeedbackSent();
+     }
+     
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message,  { theme });
     }
   }
 
