@@ -87,7 +87,7 @@ export default function EditApiModal({ obj }) {
                 <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-light-primary dark:bg-dark-primary p-5 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="flex items-center justify-between text-lg font-bold leading-6 text-light-text
+                    className="flex items-center justify-between text-xl font-bold leading-6 text-light-text
                     dark:text-dark-text"
                   >
                     Editar Api

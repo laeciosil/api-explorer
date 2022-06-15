@@ -54,7 +54,7 @@ export default function EvaluationModal() {
                 <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-light-primary dark:bg-dark-primary p-5 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="flex items-center justify-between text-lg font-bold leading-6 text-light-text dark:text-dark-text"
+                    className="flex items-center justify-between text-xl font-bold leading-6 text-light-text dark:text-dark-text"
                   >
                     Avaliação
                     <button

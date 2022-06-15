@@ -54,7 +54,7 @@ export default function NewProjectModal() {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-light-primary dark:bg-dark-primary p-5 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="flex items-center justify-between text-lg font-bold leading-6 text-light-text
+                    className="flex items-center justify-between text-xl font-bold leading-6 text-light-text
                     dark:text-dark-text"
                   >
                     Adicionar Projeto
@@ -70,7 +70,7 @@ export default function NewProjectModal() {
                     <NewProjectForm />
                   </div>
 
-                  <div className="mt-4">
+                  <div className="mt-6">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
