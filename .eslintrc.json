@@ -21,6 +21,8 @@
     "react/no-unescaped-entities": "off",
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "off",
+    "react/jsx-no-constructed-context-values": "off",
+    "no-param-reassign": "off",
     "jsx-a11y/label-has-associated-control": [
       "error",
       {

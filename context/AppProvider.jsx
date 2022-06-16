@@ -1,16 +1,13 @@
-import PropTypes from "prop-types"
-import React, { useState, useEffect } from "react";
-import { AppContext } from "./AppContext";
+import { useState, useEffect } from 'react';
+import { AppContext } from './AppContext';
 
-
-function AppProvider({children}) {
+function AppProvider({ children }) {
   const [apis, setApis] = useState([]);
   const [editApi, setEditApi] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [filterAPi, setFilterAPi] = useState({});
   const [isOpenApiModal, setIsOpenApiModal] = useState(false);
-
 
   useEffect(() => {
     async function fecthCategories() {
@@ -42,16 +39,12 @@ function AppProvider({children}) {
     editApi,
     setEditApi,
   };
-  
+
   return (
     <AppContext.Provider value={state}>
       {children}
     </AppContext.Provider>
   );
-}
-
-AppProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default AppProvider;
