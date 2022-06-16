@@ -50,6 +50,7 @@ function MenuDropdownLogin() {
           <div className="flex flex-col justify-center items-center w-56 h-40 space-y-2 bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md p-4 shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
             <p className="text-center">Faça o login com o github</p>
             <button
+              type="button"
               className="p-2 flex gap-2 justify-center items-center rounded-md border-transparent w-full border-2 text-[#6772E5] border-[#6772E5] hover:bg-[#6772E5] hover:text-dark-text"
               onClick={() => login()}
             >

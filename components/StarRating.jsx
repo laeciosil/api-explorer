@@ -1,4 +1,5 @@
-import { Star } from "phosphor-react";
+import { Star } from 'phosphor-react';
+
 const STAR_NUMBER = 5;
 
 function StarRating({ rating }) {
@@ -8,10 +9,10 @@ function StarRating({ rating }) {
         const ratingValue = index + 1;
         return (
           <Star
-            key={ ratingValue }
+            key={ratingValue}
             weight="fill"
             size={25}
-            color={ ratingValue <= rating ? '#ffc107' : '#e4e5e9' }
+            color={ratingValue <= rating ? '#ffc107' : '#e4e5e9'}
           />
         );
       })}

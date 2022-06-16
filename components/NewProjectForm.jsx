@@ -1,7 +1,8 @@
 function NewProjectForm() {
   return (
     <form className="w-full flex flex-col space-y-3">
-      <label forHtml="url" className="flex w-full flex-wrap gap-2 items-center">Endereço do repositório:
+      <label forHtml="url" className="flex w-full flex-wrap gap-2 items-center">
+        Endereço do repositório:
         <input
           type="url"
           placeholder="https://example.com"
@@ -11,7 +12,7 @@ function NewProjectForm() {
           required
         />
       </label>
-      <input type="file" accept=".png" className="h-9 rounded-md focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none"/>
+      <input type="file" accept=".png" className="h-9 rounded-md focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none" />
     </form>
   );
 }

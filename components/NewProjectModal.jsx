@@ -1,8 +1,7 @@
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
-import { X } from "phosphor-react";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState } from 'react';
+import { X } from 'phosphor-react';
 import NewProjectForm from './NewProjectForm';
-
 
 export default function NewProjectModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +23,6 @@ export default function NewProjectModal() {
       >
         + add projeto
       </button>
-  
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -63,7 +61,7 @@ export default function NewProjectModal() {
                       onClick={closeModal}
                       className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
                     >
-                      <X weight='bold'/>
+                      <X weight="bold" />
                     </button>
                   </Dialog.Title>
                   <div className="w-full mt-2">
@@ -86,5 +84,5 @@ export default function NewProjectModal() {
         </Dialog>
       </Transition>
     </>
-  )
+  );
 }

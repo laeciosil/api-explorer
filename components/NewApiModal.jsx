@@ -1,19 +1,18 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { X } from "phosphor-react";
-import NewApiForm from "./NewApiForm";
-import { api } from "../services";
-import { useUser } from "../hooks/useUser";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState, useContext } from 'react';
+import { X } from 'phosphor-react';
 import { toast } from 'react-toastify';
-import { AppContext } from "../context/AppContext";
-import { useContext } from "react";
+import NewApiForm from './NewApiForm';
+import { api } from '../services';
+import { useUser } from '../hooks/useUser';
+import { AppContext } from '../context/AppContext';
 
 export default function NewApiModal() {
   const { isOpenApiModal, setIsOpenApiModal } = useContext(AppContext);
   const { token, getApis } = useUser();
-  const [url, setUrl] = useState("");
-  const [category, setCategory] = useState("Anime");
-  const [description, setDescription] = useState("");
+  const [url, setUrl] = useState('');
+  const [category, setCategory] = useState('Anime');
+  const [description, setDescription] = useState('');
 
   function closeModal() {
     setIsOpenApiModal(false);
@@ -24,25 +23,25 @@ export default function NewApiModal() {
   }
 
   async function handleAddApi() {
-    const theme = localStorage.getItem("theme") || "light";
-    toast.info("Aguarde...", { theme, autoClose: 500 });
+    const theme = localStorage.getItem('theme') || 'light';
+    toast.info('Aguarde...', { theme, autoClose: 500 });
     try {
       const response = await api.post(
-        "/apis",
+        '/apis',
         { url, category, description },
         {
           headers: {
             Authorization: `bearer ${token}`,
           },
-        }
+        },
       );
       if (response.status === 201) {
         await getApis(token);
-        toast.success("API adicionada com sucesso!", { theme });
+        toast.success('API adicionada com sucesso!', { theme });
         closeModal();
       }
     } catch (error) {
-      toast.error(error.response.data.message,  { theme });
+      toast.error(error.response.data.message, { theme });
     }
   }
 
