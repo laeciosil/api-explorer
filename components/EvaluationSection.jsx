@@ -1,13 +1,12 @@
-import { Star } from "phosphor-react";
-import EvaluationModal from "./EvaluationModal";
-import StarRating from "./StarRating";
-import { formatDate } from "./utils";
-
+import { Star } from 'phosphor-react';
+import EvaluationModal from './EvaluationModal';
+import StarRating from './StarRating';
+import { formatDate } from './utils';
 
 function EvaluationSection({ evaluations, setEvaluations, apiId }) {
   const STAR_NUMBER = 5;
   const rating = evaluations.reduce((acc, curr) => acc + curr.rating, 0) / evaluations.length;
-  
+
   return (
     evaluations && (
       <section className="w-full flex flex-col justify-center items-center space-y-5">
@@ -27,7 +26,7 @@ function EvaluationSection({ evaluations, setEvaluations, apiId }) {
         ) : (
           <div className="w-full flex flex-col gap-4">
             {evaluations.map((evaluation) => (
-              <div key={ evaluation.id } className="flex items-center justify-between bg-light-primary dark:bg-dark-primary p-5 rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+              <div key={evaluation.id} className="flex items-center justify-between bg-light-primary dark:bg-dark-primary p-5 rounded-md shadow-md ring-1 ring-black ring-opacity-5">
                 <div className="grow space-y-3">
                   <p className="text-base">{evaluation.message}</p>
                   <p className="text-sm text-[#979899] font-bold">{`${evaluation.user_name} em ${formatDate(evaluation.updated_at)}`}</p>
@@ -37,9 +36,9 @@ function EvaluationSection({ evaluations, setEvaluations, apiId }) {
                     const ratingValue = index + 1;
                     return (
                       <Star
-                        key={ ratingValue }
+                        key={ratingValue}
                         weight="fill"
-                        color={ ratingValue <= evaluation.rating ? '#ffc107' : '#e4e5e9' }
+                        color={ratingValue <= evaluation.rating ? '#ffc107' : '#e4e5e9'}
                       />
                     );
                   })}

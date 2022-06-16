@@ -1,4 +1,4 @@
-import Logo from "./Logo";
+import Logo from './Logo';
 
 function Footer() {
   return (
@@ -6,28 +6,35 @@ function Footer() {
       <div className="w-full flex justify-center items-center p-3">
         <Logo />
       </div>
-      <p className="text-[#979899] font-normal">Desenvolvido com ♥ por
+      <p className="text-[#979899] font-normal">
+        Desenvolvido com ♥ por
         {' '}
-        <a 
+        <a
           href="https://www.linkedin.com/in/laecio/"
           className="hover:text-light-secondary underline"
-          target="_blank" rel="noreferrer"
+          target="_blank"
+          rel="noreferrer"
         >
           Laecio
-        </a>,
+        </a>
+        ,
         {' '}
-        <a 
+        <a
           href="https://www.linkedin.com/in/paolofullone/"
           className="hover:text-light-secondary underline"
-          target="_blank" rel="noreferrer"
+          target="_blank"
+          rel="noreferrer"
         >
           Paolo
-        </a> e
+        </a>
         {' '}
-        <a 
+        e
+        {' '}
+        <a
           href="https://www.linkedin.com/in/thiagodanobrega/"
           className="hover:text-light-secondary underline"
-          target="_blank" rel="noreferrer"
+          target="_blank"
+          rel="noreferrer"
         >
           Thiago
         </a>
