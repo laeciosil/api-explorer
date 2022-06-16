@@ -11,20 +11,20 @@ export function UserProvider({ children }) {
   const [token, setToken] = useState('');
   const router = useRouter();
 
-  const validateToken = async () => {
-    const { exp } = jwt.decode(token);
+  const validateToken = async (jwtToken) => {
+    const { exp } = jwt.decode(jwtToken);
 
     if (exp && exp < Date.now() / 1000) {
       router.push(process.env.NEXT_PUBLIC_REDIRECT_URL);
     }
   };
 
-  const getApis = async () => {
-    await validateToken(token);
+  const getApis = async (jwtToken) => {
+    await validateToken(jwtToken);
 
     const response = await api.get('/apis/by-user', {
       headers: {
-        Authorization: `bearer ${token}`,
+        Authorization: `bearer ${jwtToken}`,
       },
     });
     return setApis(response.data);
