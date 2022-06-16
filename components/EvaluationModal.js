@@ -1,18 +1,53 @@
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
-import EvaluationForm from './EvaluationForm';
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
+import EvaluationForm from "./EvaluationForm";
 import { X } from "phosphor-react";
+import { api } from "../services";
+import { useUser } from "../hooks/useUser";
+import { toast } from "react-toastify";
+import { useSession, signIn } from "next-auth/react";
 
-
-export default function EvaluationModal() {
+export default function EvaluationModal({ apiId, setEvaluations }) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [rating, setRating] = useState(0);
+  const [message, setMessage] = useState("");
+  const { token } = useUser();
+  const {data: session } = useSession();
   function closeModal() {
     setIsOpen(false);
   }
 
   function openModal() {
-    setIsOpen(true);
+    if (session) {
+      setIsOpen(true);
+    } else {
+      signIn();
+    }
+  }
+  async function getEvaluations() {
+    const response = await api.get(`ratings/by-api/${apiId}`);
+    setEvaluations(response.data);
+  }
+
+  async function handleAddEvaluation() {
+    const theme = localStorage.getItem("theme") || "light";
+    toast.info("Aguarde...", { theme, autoClose: 500 });
+    try {
+      const response = await api.post(
+        "ratings",
+        { rating, message, api_id: apiId },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      );
+      await getEvaluations();
+      closeModal();
+      toast.success(response.data.message, { theme });
+    } catch (error) {
+      toast.error(error.response.data.message, { theme });
+    }
   }
 
   return (
@@ -24,7 +59,6 @@ export default function EvaluationModal() {
       >
         Avaliar
       </button>
-  
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -62,18 +96,22 @@ export default function EvaluationModal() {
                       onClick={closeModal}
                       className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
                     >
-                      <X weight='bold'/>
+                      <X weight="bold" />
                     </button>
                   </Dialog.Title>
                   <div className="mt-2">
-                    <EvaluationForm />
+                    <EvaluationForm
+                      setMessage={setMessage}
+                      setRating={setRating}
+                      rating={rating}
+                    />
                   </div>
 
                   <div className="mt-4">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium  hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
-                      onClick={closeModal}
+                      onClick={handleAddEvaluation}
                     >
                       Adicionar
                     </button>
@@ -85,5 +123,5 @@ export default function EvaluationModal() {
         </Dialog>
       </Transition>
     </>
-  )
+  );
 }

@@ -1,16 +1,9 @@
 import { Star } from "phosphor-react";
-import { useState } from "react";
 import { RadioGroup } from '@headlessui/react'
 
 const STAR_NUMBER = 5;
 
-function EvaluationForm() {
-  const [rating, setRating] = useState('');
-  const [message, setMessage] = useState('');
-
-  const handleChangeMessage = ({ target: { value } }) => {
-    setMessage(value);
-  }
+function EvaluationForm({setRating, setMessage, rating}) {
 
   return (
     <form className="w-full flex flex-col gap-4">
@@ -36,7 +29,7 @@ function EvaluationForm() {
         placeholder="Escreva sua mensagem"
         className="h-28 p-3 rounded-md bg-light-primary dark:bg-dark-primary focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none scrollbar-thumb-zinc-300 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin"
         name="message"
-        onChange={ handleChangeMessage }
+        onChange={({target}) =>  setMessage(target.value) }
       />
     </form>
   );
