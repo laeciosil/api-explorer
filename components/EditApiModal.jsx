@@ -1,20 +1,19 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { X, PencilSimple } from "phosphor-react";
-import NewApiForm from "./NewApiForm";
-import { api } from "../services";
-import { useUser } from "../hooks/useUser";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState, useContext } from 'react';
+import { X, PencilSimple } from 'phosphor-react';
 import { toast } from 'react-toastify';
-import { AppContext } from "../context/AppContext";
-import { useContext } from "react";
+import NewApiForm from './NewApiForm';
+import { api } from '../services';
+import { useUser } from '../hooks/useUser';
+import { AppContext } from '../context/AppContext';
 
 export default function EditApiModal({ obj }) {
   const { setEditApi } = useContext(AppContext);
   const { token, getApis } = useUser();
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState('');
   const [isOpenEdit, setIsOpenEdit] = useState(false);
-  const [category, setCategory] = useState("Anime");
-  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState('Anime');
+  const [description, setDescription] = useState('');
 
   function closeModal() {
     setEditApi({});
@@ -30,36 +29,35 @@ export default function EditApiModal({ obj }) {
   }
 
   async function handleAddApi() {
-    const theme = localStorage.getItem("theme") || "light";
-    toast.info("Aguarde...", { theme, autoClose: 500 });
+    const theme = localStorage.getItem('theme') || 'light';
+    toast.info('Aguarde...', { theme, autoClose: 500 });
     try {
       const response = await api.put(
         `/apis/${obj.id}`,
-        {url, category, description },
+        { url, category, description },
         {
           headers: {
             Authorization: `bearer ${token}`,
           },
-        }
+        },
       );
-     
-        await getApis(token);
-        toast.success(response.data.message, { theme });
-        closeModal();
-    
+
+      await getApis(token);
+      toast.success(response.data.message, { theme });
+      closeModal();
     } catch (error) {
-      toast.error(error.response.data.message,  { theme });
+      toast.error(error.response.data.message, { theme });
     }
   }
 
   return (
     <>
-      <button 
-        type='button' 
+      <button
+        type="button"
         className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
         onClick={openModal}
       >
-        <PencilSimple weight='bold'/>
+        <PencilSimple weight="bold" />
       </button>
 
       <Transition appear show={isOpenEdit} as={Fragment}>

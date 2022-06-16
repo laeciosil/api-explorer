@@ -20,6 +20,7 @@
     "react/jsx-no-bind": "off",
     "react/no-unescaped-entities": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
     "jsx-a11y/label-has-associated-control": [
       "error",
       {

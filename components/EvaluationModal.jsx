@@ -1,18 +1,18 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import EvaluationForm from "./EvaluationForm";
-import { X } from "phosphor-react";
-import { api } from "../services";
-import { useUser } from "../hooks/useUser";
-import { toast } from "react-toastify";
-import { useSession, signIn } from "next-auth/react";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState } from 'react';
+import { X } from 'phosphor-react';
+import { toast } from 'react-toastify';
+import { useSession, signIn } from 'next-auth/react';
+import EvaluationForm from './EvaluationForm';
+import { api } from '../services';
+import { useUser } from '../hooks/useUser';
 
 export default function EvaluationModal({ apiId, setEvaluations }) {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const { token } = useUser();
-  const {data: session } = useSession();
+  const { data: session } = useSession();
   function closeModal() {
     setIsOpen(false);
   }
@@ -30,17 +30,17 @@ export default function EvaluationModal({ apiId, setEvaluations }) {
   }
 
   async function handleAddEvaluation() {
-    const theme = localStorage.getItem("theme") || "light";
-    toast.info("Aguarde...", { theme, autoClose: 500 });
+    const theme = localStorage.getItem('theme') || 'light';
+    toast.info('Aguarde...', { theme, autoClose: 500 });
     try {
       const response = await api.post(
-        "ratings",
+        'ratings',
         { rating, message, api_id: apiId },
         {
           headers: {
             Authorization: `bearer ${token}`,
           },
-        }
+        },
       );
       await getEvaluations();
       closeModal();
