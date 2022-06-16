@@ -1,21 +1,20 @@
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import { Avatar } from 'flowbite-react'
-import { useSession, signOut } from 'next-auth/react'
-import NewApiModal from '../components/NewApiModal'
-import { Widget } from '../components/FeedbackWidget/Widget'
-import { useUser } from '../hooks/useUser'
-import { useRouter } from 'next/router'
-import EditApiModal from '../components/EditApiModal'
+import { Avatar } from 'flowbite-react';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import NewApiModal from '../components/NewApiModal';
+import { Widget } from '../components/FeedbackWidget/Widget';
+import { useUser } from '../hooks/useUser';
+import EditApiModal from '../components/EditApiModal';
 
 export default function Home() {
-  const { data: session } = useSession()
-  const { user, apis } = useUser()
-  const router = useRouter()
+  const { user, apis } = useUser();
+  const router = useRouter();
   const logout = async () => {
-    await router.push('/')
-    signOut()
-  }
+    await router.push('/');
+    signOut();
+  };
   return (
     <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden">
       <Header />
@@ -24,8 +23,8 @@ export default function Home() {
           <section>
             <Avatar
               img={user && user.profile}
-              rounded={true}
-              stacked={true}
+              rounded
+              stacked
               size="xl"
             >
               <div className="space-y-3 font-medium dark:text-white">
@@ -43,7 +42,12 @@ export default function Home() {
 
           <section className="w-full flex flex-col justify-center items-center space-y-5">
             <div className="w-full flex items-center justify-between border-b-[1px] dark:border-gray-700">
-              <h2 className="font-bold text-xl">Suas {`api's`}:</h2>
+              <h2 className="font-bold text-xl">
+                Suas
+                {' '}
+                {'api\'s'}
+                :
+              </h2>
               <NewApiModal />
             </div>
             {apis.map((item, index) => (
@@ -66,5 +70,5 @@ export default function Home() {
       <Widget />
       <Footer />
     </div>
-  )
+  );
 }

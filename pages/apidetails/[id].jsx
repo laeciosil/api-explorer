@@ -1,30 +1,30 @@
-import Footer from '../../components/Footer'
-import Header from '../../components/Header'
-import EvaluationSection from '../../components/EvaluationSection'
-import NewProjectModal from '../../components/NewProjectModal'
-import { Widget } from '../../components/FeedbackWidget/Widget'
-import CarouselProject from '../../components/CarouselProject'
-import { useEffect, useState } from 'react'
-import { api } from '../../services'
-import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import EvaluationSection from '../../components/EvaluationSection';
+import NewProjectModal from '../../components/NewProjectModal';
+import { Widget } from '../../components/FeedbackWidget/Widget';
+import CarouselProject from '../../components/CarouselProject';
+import { api } from '../../services';
 
 function ApiDetails() {
-  const [apiDetails, setApiDetails] = useState({})
-  const [evaluations, setEvaluations] = useState([])
+  const [apiDetails, setApiDetails] = useState({});
+  const [evaluations, setEvaluations] = useState([]);
 
-  const router = useRouter()
-  const { id } = router.query
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     async function getApiDetails() {
       if (id) {
-        const response = await api.get(`apis/${id}`)
-        setApiDetails(response.data)
-        setEvaluations(response.data.evaluations)
+        const response = await api.get(`apis/${id}`);
+        setApiDetails(response.data);
+        setEvaluations(response.data.evaluations);
       }
     }
-    getApiDetails()
-  }, [id])
+    getApiDetails();
+  }, [id]);
   return (
     <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden scrollbar-thumb-zinc-400 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin">
       <Header />
@@ -83,7 +83,7 @@ function ApiDetails() {
       <Widget />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default ApiDetails
+export default ApiDetails;

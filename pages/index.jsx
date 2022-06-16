@@ -1,22 +1,23 @@
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Carousel from '../components/Carousel'
-import { Widget } from '../components/FeedbackWidget/Widget'
-import { useRouter } from 'next/router'
-import { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
-import { useSession, signIn } from 'next-auth/react'
+import { useContext } from 'react';
+import { useRouter } from 'next/router';
+import { useSession, signIn } from 'next-auth/react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Carousel from '../components/Carousel';
+import { Widget } from '../components/FeedbackWidget/Widget';
+import { AppContext } from '../context/AppContext';
+
 export default function Home() {
-  const { setIsOpenApiModal } = useContext(AppContext)
-  const { data: session } = useSession()
-  const router = useRouter()
+  const { setIsOpenApiModal } = useContext(AppContext);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   function redirectProfile() {
     if (session) {
-      setIsOpenApiModal(true)
-      router.push('/profile')
+      setIsOpenApiModal(true);
+      router.push('/profile');
     } else {
-      signIn()
+      signIn();
     }
   }
 
@@ -26,8 +27,12 @@ export default function Home() {
       <main className="w-full grow flex items-center justify-center relative h-screen bg-light-background dark:bg-dark-background">
         <section className="w-[calc(100vw-2rem)] md:w-[48rem] space-y-10 flex flex-col justify-center items-center">
           <h1 className="text-center text-6xl font-bold">
-            Encontre a <span className="text-light-secondary">API</span>{' '}
-            perfeita para o seu próximo{' '}
+            Encontre a
+            {' '}
+            <span className="text-light-secondary">API</span>
+            {' '}
+            perfeita para o seu próximo
+            {' '}
             <span className="text-light-secondary">projeto</span>
           </h1>
           <h2 className="text-[#979899] text-center text-[22px] font-normal">
@@ -37,7 +42,8 @@ export default function Home() {
               onClick={redirectProfile}
             >
               Adicione uma api
-            </button>{' '}
+            </button>
+            {' '}
             e compartilhe com a comunidade.
           </h2>
           <div className="w-[calc(100%-3rem)] space-y-5">
@@ -49,5 +55,5 @@ export default function Home() {
       <Widget />
       <Footer />
     </div>
-  )
+  );
 }
