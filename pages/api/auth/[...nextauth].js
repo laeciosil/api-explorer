@@ -1,6 +1,5 @@
-import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
-import { api } from "../../../services";
+import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
 
 export default NextAuth({
   providers: [
@@ -9,6 +8,10 @@ export default NextAuth({
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
+
+  pages: {
+    signIn: '/auth/signin',
+  },
 
   callbacks: {
     async jwt({ token, account }) {
@@ -21,5 +24,6 @@ export default NextAuth({
       session.accessToken = token.accessToken
       return session
     }
-  }
+  },
+
 })
