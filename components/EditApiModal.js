@@ -23,6 +23,9 @@ export default function EditApiModal({ obj }) {
 
   function openModal() {
     setEditApi(obj);
+    setUrl(obj.url_repo);
+    setCategory(obj.category);
+    setDescription(obj.description);
     setIsOpenEdit(true);
   }
 
@@ -30,20 +33,20 @@ export default function EditApiModal({ obj }) {
     const theme = localStorage.getItem("theme") || "light";
     toast.info("Aguarde...", { theme, autoClose: 500 });
     try {
-      const response = await api.post(
-        "/apis",
-        { url, category, description },
+      const response = await api.put(
+        `/apis/${obj.id}`,
+        {url, category, description },
         {
           headers: {
             Authorization: `bearer ${token}`,
           },
         }
       );
-      if (response.status === 201) {
+     
         await getApis(token);
-        toast.success("API adicionada com sucesso!", { theme });
+        toast.success(response.data.message, { theme });
         closeModal();
-      }
+    
     } catch (error) {
       toast.error(error.response.data.message,  { theme });
     }
@@ -103,6 +106,8 @@ export default function EditApiModal({ obj }) {
                     <NewApiForm
                       setCategory={setCategory}
                       setDescription={setDescription}
+                      category={category}
+                      description={description}
                       setUrl={setUrl}
                       obj={obj}
                     />

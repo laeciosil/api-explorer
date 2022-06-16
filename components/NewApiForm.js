@@ -3,7 +3,7 @@ import { AppContext } from "../context/AppContext";
 
 function NewApiForm(props) {
   const { categories, editApi } = useContext(AppContext);
-  const { setUrl, setCategory, setDescription } = props;
+  const { setUrl, setCategory, setDescription, category, description } = props;
 
   return (
     <form className="w-full flex flex-col gap-4">
@@ -23,7 +23,7 @@ function NewApiForm(props) {
           name="carmodel" 
           id="categorieselect"
           className="h-10 rounded-md bg-light-primary dark:bg-dark-primary text-light-text dark:text-dark-text focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none scrollbar-thumb-zinc-300 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin"
-          value={editApi.category}
+          value={category}
           onChange={({target}) => setCategory(target.value)} 
         >
           {categories.map((category) => (
@@ -36,7 +36,7 @@ function NewApiForm(props) {
         placeholder="Descrição..."
         className="w-full h-28 p-3 rounded-md bg-light-primary dark:bg-dark-primary text-light-text dark:text-dark-text focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none scrollbar-thumb-zinc-300 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin"
         name="description"
-        value={editApi.description}
+        value={description}
         onChange={({target}) => setDescription(target.value)}
       />
     </form>
