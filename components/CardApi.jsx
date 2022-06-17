@@ -5,7 +5,7 @@ const STAR_NUMBER = 5;
 
 function CardApi({ api, numberLength }) {
   return (
-    <Link href={`/apidetails/${api.id}`}>
+    <Link href={`/api-details/${api.id}`}>
       <div
         style={{ cursor: 'pointer' }}
         className="mr-2 p-3 bg-light-primary rounded-md dark:bg-dark-primary shadow-lg ring-1 ring-black ring-opacity-5 space-y-2"
