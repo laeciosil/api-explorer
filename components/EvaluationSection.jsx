@@ -1,10 +1,12 @@
 import { Star } from 'phosphor-react';
+import { useData } from '../hooks/useData';
 import { useUser } from '../hooks/useUser';
 import EvaluationModal from './EvaluationModal';
 import StarRating from './StarRating';
 import { formatDate } from './utils';
 
-function EvaluationSection({ evaluations, setEvaluations, apiId }) {
+function EvaluationSection() {
+  const { evaluations } = useData();
   const STAR_NUMBER = 5;
   const rating = evaluations.reduce((acc, curr) => acc + curr.rating, 0) / evaluations.length || 0;
   const { user } = useUser();
@@ -22,9 +24,8 @@ function EvaluationSection({ evaluations, setEvaluations, apiId }) {
           </div>
           <div className="flex">
             <EvaluationModal
+              evaluationByUser={evaluationExists || {}}
               typeButton={evaluationExists ? 'Editar' : 'Avaliar'}
-              setEvaluations={setEvaluations}
-              apiId={apiId}
             />
           </div>
         </div>

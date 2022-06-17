@@ -7,15 +7,16 @@ import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import EvaluationForm from './EvaluationForm';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
+import { useData } from '../hooks/useData';
 
-export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
+export default function EvaluationModal({ typeButton, evaluationByUser }) {
   const { isCreatingEvaluation } = parseCookies();
   const [isOpen, setIsOpen] = useState(!!isCreatingEvaluation);
-  const [rating, setRating] = useState(0);
-  const [message, setMessage] = useState('');
+  const [rating, setRating] = useState(evaluationByUser.rating || 0);
+  const [message, setMessage] = useState(evaluationByUser.message || '');
   const { token } = useUser();
   const { data: session } = useSession();
-
+  const { setEvaluations, apiById } = useData();
   function closeModal() {
     destroyCookie(null, 'isCreatingEvaluation');
     destroyCookie(null, 'id');
@@ -28,12 +29,12 @@ export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
       setIsOpen(true);
     } else {
       setCookie(null, 'isCreatingEvaluation', 'true', { maxAge: 60 * 60, path: '/' });
-      setCookie(null, 'id', `${apiId}`, { maxAge: 60 * 60, path: '/' });
+      setCookie(null, 'id', `${apiById.id}`, { maxAge: 60 * 60, path: '/' });
       signIn();
     }
   }
   async function getEvaluations() {
-    const response = await api.get(`ratings/by-api/${apiId}`);
+    const response = await api.get(`ratings/by-api/${apiById.id}`);
     setEvaluations(response.data);
   }
 
@@ -43,7 +44,7 @@ export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
     try {
       const response = await api.post(
         'ratings',
-        { rating, message, api_id: apiId },
+        { rating, message, api_id: apiById.id },
         {
           headers: {
             Authorization: `bearer ${token}`,
@@ -111,6 +112,7 @@ export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
                     <EvaluationForm
                       setMessage={setMessage}
                       setRating={setRating}
+                      message={message}
                       rating={rating}
                     />
                   </div>
@@ -121,7 +123,7 @@ export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium  hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
                       onClick={handleAddEvaluation}
                     >
-                      Adicionar
+                      {evaluationByUser ? 'Atualizar' : 'Adicionar'}
                     </button>
                   </div>
                 </Dialog.Panel>

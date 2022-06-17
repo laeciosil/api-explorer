@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -9,14 +9,12 @@ import CarouselProject from '../../components/CarouselProject';
 import { useData } from '../../hooks/useData';
 
 function ApiDetails() {
-  const [evaluations, setEvaluations] = useState([]);
-
   const router = useRouter();
   const { id } = router.query;
   const { getApiById, apiById } = useData();
 
   useEffect(() => {
-    function getApiDetails() {
+    async function getApiDetails() {
       if (id) {
         getApiById(id);
       }
@@ -74,9 +72,7 @@ function ApiDetails() {
               </div>
             </section>
             <EvaluationSection
-              evaluations={evaluations}
               apiId={apiById.id}
-              setEvaluations={setEvaluations}
             />
           </section>
         </main>

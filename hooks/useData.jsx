@@ -12,6 +12,7 @@ export function DataProvider({ children }) {
   const [categories, setCategories] = useState([]);
   const [filterAPi, setFilterAPi] = useState({});
   const [apiById, setApiById] = useState(null);
+  const [evaluations, setEvaluations] = useState([]);
 
   async function getApis() {
     setIsLoading(true);
@@ -32,6 +33,7 @@ export function DataProvider({ children }) {
   async function getApiById(id) {
     const response = await api.get(`/apis/${id}`);
     setApiById(response.data);
+    setEvaluations(response.data.evaluations);
   }
 
   return (
@@ -48,6 +50,8 @@ export function DataProvider({ children }) {
         getApis,
         getApiById,
         apiById,
+        evaluations,
+        setEvaluations,
       }}
     >
       {children}

@@ -3,7 +3,9 @@ import { RadioGroup } from '@headlessui/react';
 
 const STAR_NUMBER = 5;
 
-function EvaluationForm({ setRating, setMessage, rating }) {
+function EvaluationForm({
+  setRating, setMessage, rating, message,
+}) {
   return (
     <form className="w-full flex flex-col gap-4">
       <div className="flex">
@@ -26,6 +28,7 @@ function EvaluationForm({ setRating, setMessage, rating }) {
       <textarea
         type="text"
         placeholder="Escreva sua mensagem"
+        value={message}
         className="h-28 p-3 rounded-md bg-light-primary dark:bg-dark-primary focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none scrollbar-thumb-zinc-300 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin"
         name="message"
         onChange={({ target }) => setMessage(target.value)}
