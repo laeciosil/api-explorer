@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useData } from '../hooks/useData';
 
 function MenuDropdownCategories() {
-  const { categories, setFilterAPi } = useData;
+  const { categories, setFilterAPi } = useData();
   const router = useRouter();
   const changeCategory = (value) => {
     setFilterAPi({ type: 'category', value });
