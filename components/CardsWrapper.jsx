@@ -1,10 +1,9 @@
-import { useContext } from 'react';
+import { useData } from '../hooks/useData';
 import CardApi from './CardApi';
-import { AppContext } from '../context/AppContext';
 import { Loading } from './Loading';
 
 function CardsWrapper() {
-  const { filterAPi, apis, isLoading } = useContext(AppContext);
+  const { filterAPi, apis, isLoading } = useData();
   function filteredApi() {
     if (!filterAPi.type) return apis;
     const newArr = apis.filter((obj) => {

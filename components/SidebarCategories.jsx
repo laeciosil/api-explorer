@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
+import { useData } from '../hooks/useData';
 
 function SidebarCategories() {
-  const { categories, setFilterAPi } = useContext(AppContext);
+  const { categories, setFilterAPi } = useData();
   const changeCategory = (value) => {
     setFilterAPi({ type: 'category', value });
   };
