@@ -1,15 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState, useContext } from 'react';
+import { Fragment, useState } from 'react';
 import { X } from 'phosphor-react';
 import { toast } from 'react-toastify';
-import { destroyCookie } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
 import NewApiForm from './NewApiForm';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
-import { AppContext } from '../context/AppContext';
 
 export default function NewApiModal() {
-  const { isOpenApiModal, setIsOpenApiModal } = useContext(AppContext);
+  const { isCreatingApi } = parseCookies();
+  const [isOpenApiModal, setIsOpenApiModal] = useState(!!isCreatingApi);
   const { token, getApis } = useUser();
   const [url, setUrl] = useState('');
   const [category, setCategory] = useState('Anime');
@@ -56,7 +56,6 @@ export default function NewApiModal() {
       >
         + add api
       </button>
-
       <Transition appear show={isOpenApiModal} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
