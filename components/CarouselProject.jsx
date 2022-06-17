@@ -3,7 +3,8 @@ import { useData } from '../hooks/useData';
 import CardProject from './CardProject';
 
 export default function CarouselProject() {
-  const { apis } = useData();
+  const { apiById } = useData();
+
   // const randomAPi = () => {
   //   const apiArr = [];
   //   for (let index = 0; index < 5; index++) {
@@ -16,7 +17,6 @@ export default function CarouselProject() {
     // centerMode: true,
     // centerPadding: "60px",
     dots: true,
-    // focusOnSelect: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -49,13 +49,20 @@ export default function CarouselProject() {
       },
     ],
   };
+
   return (
-    <Slider {...settings}>
-      {apis && apis.map((api) => (
-        <div key={api} className="cursor-pointer">
-          <CardProject api={api} />
-        </div>
-      ))}
-    </Slider>
+    apiById.fronts.length ? (
+      <Slider {...settings}>
+        {/* slider está mostrando os fronts duplicados. */}
+        {apiById && apiById.fronts.map((front) => (
+          <div key={front} className="cursor-pointer">
+            <CardProject api={front} />
+          </div>
+        ))}
+
+      </Slider>
+    ) : (
+      <p className="w-full text-center bg-light-primary dark:bg-dark-primary p-5 rounded-md">Não há projetos para essa api.</p>
+    )
   );
 }

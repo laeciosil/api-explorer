@@ -11,6 +11,7 @@ export function DataProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [filterAPi, setFilterAPi] = useState({});
+  const [apiById, setApiById] = useState(null);
 
   async function getApis() {
     setIsLoading(true);
@@ -21,13 +22,17 @@ export function DataProvider({ children }) {
 
   async function getCategories() {
     const response = await api.get('/categories');
-
     setCategories(response.data.categories);
   }
   useEffect(() => {
     getCategories();
     getApis();
   }, []);
+
+  async function getApiById(id) {
+    const response = await api.get(`/apis/${id}`);
+    setApiById(response.data);
+  }
 
   return (
     <DataContext.Provider
@@ -41,6 +46,8 @@ export function DataProvider({ children }) {
         filterAPi,
         setFilterAPi,
         getApis,
+        getApiById,
+        apiById,
       }}
     >
       {children}

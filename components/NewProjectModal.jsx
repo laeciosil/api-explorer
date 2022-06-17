@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { api } from '../services';
 import NewProjectForm from './NewProjectForm';
 import { useUser } from '../hooks/useUser';
+import { useData } from '../hooks/useData';
 
 export default function NewProjectModal({ apiDetails }) {
   const { category, id } = apiDetails;
@@ -14,6 +15,8 @@ export default function NewProjectModal({ apiDetails }) {
 
   const { token } = useUser();
 
+  const { getApiById } = useData();
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -22,12 +25,9 @@ export default function NewProjectModal({ apiDetails }) {
     setIsOpen(true);
   }
 
-  // const { url, description, url_deploy, category, api_id } = frontData;
-
   async function handleAddFront() {
     const theme = localStorage.getItem('theme') || 'light';
     toast.info('Aguarde...', { theme, autoClose: 500 });
-    // console.log(url, category, api_id);
     try {
       const response = await api.post(
         '/fronts',
@@ -44,6 +44,7 @@ export default function NewProjectModal({ apiDetails }) {
           },
         },
       );
+      await getApiById(id);
       toast.success(response.data.message, { theme });
       closeModal();
     } catch (error) {
