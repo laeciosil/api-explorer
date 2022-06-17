@@ -10,7 +10,7 @@ function NewApiForm(props) {
   return (
     <form className="w-full flex flex-col gap-4">
       <label
-        forHtml="url"
+        forhtml="url"
         className="flex flex-col gap-2"
       >
         Endereço do repositório:
@@ -25,7 +25,7 @@ function NewApiForm(props) {
           required
         />
       </label>
-      <label forHtml="categorieselect" className="flex flex-col gap-2">
+      <label forhtml="categorieselect" className="flex flex-col gap-2">
         Selecione a categoria:
         <select
           name="carmodel"
