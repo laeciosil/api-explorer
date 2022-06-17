@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
+import { setCookie, parseCookies } from 'nookies';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Carousel from '../components/Carousel';
@@ -11,15 +12,24 @@ export default function Home() {
   const { setIsOpenApiModal } = useContext(AppContext);
   const { data: session } = useSession();
   const router = useRouter();
+  const { isCreatingApi, isCreatingEvaluation, id } = parseCookies();
 
   function redirectProfile() {
     if (session) {
       setIsOpenApiModal(true);
       router.push('/profile');
     } else {
+      setCookie(null, 'isCreatingApi', 'true', { maxAge: 60 * 60, path: '/' });
       signIn();
     }
   }
+
+  function redirectEvaluation() {
+    router.push(`/apidetails/${id}`);
+  }
+
+  if (session && isCreatingApi) redirectProfile();
+  if (session && isCreatingEvaluation) redirectEvaluation();
 
   return (
     <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden scrollbar-thumb-zinc-400 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin">
