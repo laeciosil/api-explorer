@@ -1,11 +1,10 @@
 import { CaretDown } from 'phosphor-react';
 import { Popover } from '@headlessui/react';
-import { useContext } from 'react';
 import { useRouter } from 'next/router';
-import { AppContext } from '../context/AppContext';
+import { useData } from '../hooks/useData';
 
 function MenuDropdownCategories() {
-  const { categories, setFilterAPi } = useContext(AppContext);
+  const { categories, setFilterAPi } = useData;
   const router = useRouter();
   const changeCategory = (value) => {
     setFilterAPi({ type: 'category', value });
@@ -19,7 +18,7 @@ function MenuDropdownCategories() {
       </Popover.Button>
       <Popover.Panel className="absolute z-10">
         <div className="flex flex-col w-44 bg-light-primary dark:bg-dark-primary left-0 top-9 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 overflow-auto h-56 scrollbar-thumb-zinc-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent scrollbar-thin">
-          {categories.map((category) => (
+          {categories && categories.map((category) => (
             <button
               type="button"
               key={category.id}

@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { X } from 'phosphor-react';
 import { toast } from 'react-toastify';
-import { destroyCookie, parseCookies } from 'nookies';
+import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import NewApiForm from './NewApiForm';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
@@ -17,6 +17,7 @@ export default function NewApiModal() {
 
   function closeModal() {
     destroyCookie(null, 'isCreatingApi');
+    setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
     setIsOpenApiModal(false);
   }
 

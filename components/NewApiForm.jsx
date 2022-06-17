@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
+import { useData } from '../hooks/useData';
 
 function NewApiForm(props) {
-  const { categories, editApi } = useContext(AppContext);
+  const { categories, editApi } = useData();
   const {
     setUrl, setCategory, setDescription, category, description,
   } = props;

@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import Slider from 'react-slick';
-import { AppContext } from '../context/AppContext';
+import { useData } from '../hooks/useData';
 import CardProject from './CardProject';
 
 export default function CarouselProject() {
-  const { apis } = useContext(AppContext);
+  const { apis } = useData();
   // const randomAPi = () => {
   //   const apiArr = [];
   //   for (let index = 0; index < 5; index++) {

@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import Slider from 'react-slick';
+import { useData } from '../hooks/useData';
 import CardApi from './CardApi';
-import { AppContext } from '../context/AppContext';
 
 export default function Carousel() {
-  const { apis } = useContext(AppContext);
+  const { apis } = useData();
 
   const settings = {
     // className: "center",

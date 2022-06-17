@@ -4,16 +4,16 @@ import '../styles/globals.css';
 import { ThemeProvider } from 'next-themes';
 import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
-import AppProvider from '../context/AppProvider';
 import { UserProvider } from '../hooks/useUser';
 import 'react-toastify/dist/ReactToastify.css';
+import { DataProvider } from '../hooks/useData';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <ThemeProvider attribute="class">
       <UserProvider>
         <SessionProvider session={session}>
-          <AppProvider>
+          <DataProvider>
             <Component {...pageProps} />
             <ToastContainer
               position="top-right"
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
               draggable
               pauseOnHover
             />
-          </AppProvider>
+          </DataProvider>
         </SessionProvider>
       </UserProvider>
     </ThemeProvider>

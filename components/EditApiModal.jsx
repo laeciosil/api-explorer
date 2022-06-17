@@ -1,14 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState, useContext } from 'react';
+import { Fragment, useState } from 'react';
 import { X, PencilSimple } from 'phosphor-react';
 import { toast } from 'react-toastify';
 import NewApiForm from './NewApiForm';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
-import { AppContext } from '../context/AppContext';
+import { useData } from '../hooks/useData';
 
 export default function EditApiModal({ obj }) {
-  const { setEditApi } = useContext(AppContext);
+  const { setEditApi } = useData();
   const { token, getApis } = useUser();
   const [url, setUrl] = useState('');
   const [isOpenEdit, setIsOpenEdit] = useState(false);

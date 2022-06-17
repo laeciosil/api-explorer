@@ -1,11 +1,10 @@
 import { MagnifyingGlass } from 'phosphor-react';
-import { useContext } from 'react';
 import { useRouter } from 'next/router';
-import { AppContext } from '../context/AppContext';
+import { useData } from '../hooks/useData';
 
 function InputSearch() {
   const router = useRouter();
-  const { setFilterAPi } = useContext(AppContext);
+  const { setFilterAPi } = useData();
   const changeName = ({ target: { value } }) => {
     setFilterAPi({ type: 'name', value });
   };

@@ -19,6 +19,7 @@ export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
   function closeModal() {
     destroyCookie(null, 'isCreatingEvaluation');
     destroyCookie(null, 'id');
+    setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
     setIsOpen(false);
   }
 
