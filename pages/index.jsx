@@ -1,15 +1,27 @@
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
-import { setCookie, parseCookies } from 'nookies';
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Carousel from '../components/Carousel';
 import { Widget } from '../components/FeedbackWidget/Widget';
+import { useData } from '../hooks/useData';
 
 export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
-  const { isCreatingApi, isCreatingEvaluation, id } = parseCookies();
+  const { getApis } = useData();
+  const {
+    refresh, isCreatingApi, isCreatingEvaluation, id,
+  } = parseCookies();
+
+  useEffect(() => {
+    if (refresh) {
+      destroyCookie(null, 'refresh');
+      getApis();
+    }
+  }, []);
 
   function redirectProfile() {
     if (session) {
