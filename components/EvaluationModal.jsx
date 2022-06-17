@@ -8,12 +8,13 @@ import EvaluationForm from './EvaluationForm';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
 
-export default function EvaluationModal({ apiId, setEvaluations }) {
+export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState('');
   const { token } = useUser();
   const { data: session } = useSession();
+
   function closeModal() {
     destroyCookie(null, 'isCreatingEvaluation');
     destroyCookie(null, 'id');
@@ -66,7 +67,7 @@ export default function EvaluationModal({ apiId, setEvaluations }) {
         onClick={openModal}
         className="rounded-md cursor-pointer py-2 px-7 border-2 border-light-secondary text-base text-light-secondary hover:bg-light-secondary hover:text-dark-text transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-light-primary dark:focus-visible:ring-offset-dark-primary focus-visible:ring-light-secondary focus-visible:ring-opacity-50"
       >
-        Avaliar
+        {typeButton}
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
