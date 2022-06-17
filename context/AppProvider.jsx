@@ -7,7 +7,6 @@ function AppProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [filterAPi, setFilterAPi] = useState({});
-  const [isOpenApiModal, setIsOpenApiModal] = useState(false);
 
   useEffect(() => {
     async function fecthCategories() {
@@ -33,8 +32,6 @@ function AppProvider({ children }) {
     apis,
     filterAPi,
     setFilterAPi,
-    isOpenApiModal,
-    setIsOpenApiModal,
     isLoading,
     editApi,
     setEditApi,
