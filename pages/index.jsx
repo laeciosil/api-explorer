@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
 import { setCookie, parseCookies } from 'nookies';
@@ -6,17 +5,15 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Carousel from '../components/Carousel';
 import { Widget } from '../components/FeedbackWidget/Widget';
-import { AppContext } from '../context/AppContext';
 
 export default function Home() {
-  const { setIsOpenApiModal } = useContext(AppContext);
   const { data: session } = useSession();
   const router = useRouter();
   const { isCreatingApi, isCreatingEvaluation, id } = parseCookies();
 
   function redirectProfile() {
     if (session) {
-      setIsOpenApiModal(true);
+      setCookie(null, 'isCreatingApi', 'true', { maxAge: 60 * 60, path: '/' });
       router.push('/profile');
     } else {
       setCookie(null, 'isCreatingApi', 'true', { maxAge: 60 * 60, path: '/' });
@@ -25,7 +22,7 @@ export default function Home() {
   }
 
   function redirectEvaluation() {
-    router.push(`/apidetails/${id}`);
+    router.push(`/api-details/${id}`);
   }
 
   if (session && isCreatingApi) redirectProfile();
