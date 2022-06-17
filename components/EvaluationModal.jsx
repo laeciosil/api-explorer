@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react';
 import { X } from 'phosphor-react';
 import { toast } from 'react-toastify';
 import { useSession, signIn } from 'next-auth/react';
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import EvaluationForm from './EvaluationForm';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
@@ -14,6 +15,8 @@ export default function EvaluationModal({ apiId, setEvaluations }) {
   const { token } = useUser();
   const { data: session } = useSession();
   function closeModal() {
+    destroyCookie(null, 'isCreatingEvaluation');
+    destroyCookie(null, 'id');
     setIsOpen(false);
   }
 
@@ -21,6 +24,8 @@ export default function EvaluationModal({ apiId, setEvaluations }) {
     if (session) {
       setIsOpen(true);
     } else {
+      setCookie(null, 'isCreatingEvaluation', 'true', { maxAge: 60 * 60, path: '/' });
+      setCookie(null, 'id', `${apiId}`, { maxAge: 60 * 60, path: '/' });
       signIn();
     }
   }
@@ -49,6 +54,10 @@ export default function EvaluationModal({ apiId, setEvaluations }) {
       toast.error(error.response.data.message, { theme });
     }
   }
+
+  const { isCreatingEvaluation } = parseCookies();
+
+  if (isCreatingEvaluation && !isOpen) openModal();
 
   return (
     <>
