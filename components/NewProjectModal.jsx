@@ -1,10 +1,18 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { X } from 'phosphor-react';
+import { toast } from 'react-toastify';
+import { api } from '../services';
 import NewProjectForm from './NewProjectForm';
+import { useUser } from '../hooks/useUser';
 
-export default function NewProjectModal() {
+export default function NewProjectModal({ apiDetails }) {
+  const { category, id } = apiDetails;
   const [isOpen, setIsOpen] = useState(false);
+  const [url, setUrl] = useState('');
+  const [urlDeploy, setUrlDeploy] = useState('');
+
+  const { token } = useUser();
 
   function closeModal() {
     setIsOpen(false);
@@ -12,6 +20,35 @@ export default function NewProjectModal() {
 
   function openModal() {
     setIsOpen(true);
+  }
+
+  // const { url, description, url_deploy, category, api_id } = frontData;
+
+  async function handleAddFront() {
+    const theme = localStorage.getItem('theme') || 'light';
+    toast.info('Aguarde...', { theme, autoClose: 500 });
+    // console.log(url, category, api_id);
+    try {
+      const response = await api.post(
+        '/fronts',
+        {
+          url,
+          description: 'descrição teste',
+          url_deploy: urlDeploy,
+          category,
+          api_id: id,
+        },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        },
+      );
+      toast.success(response.data.message, { theme });
+      closeModal();
+    } catch (error) {
+      toast.error(error.response.data.message, { theme });
+    }
   }
 
   return (
@@ -65,14 +102,14 @@ export default function NewProjectModal() {
                     </button>
                   </Dialog.Title>
                   <div className="w-full mt-2">
-                    <NewProjectForm />
+                    <NewProjectForm setUrl={setUrl} setUrlDeploy={setUrlDeploy} />
                   </div>
 
                   <div className="mt-6">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
-                      onClick={closeModal}
+                      onClick={handleAddFront}
                     >
                       Adicionar
                     </button>

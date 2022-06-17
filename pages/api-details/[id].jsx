@@ -67,7 +67,7 @@ function ApiDetails() {
           <section className="w-full flex flex-col justify-center items-center space-y-5">
             <div className="w-full flex items-center justify-between border-b-[1px] pb-1 dark:border-gray-700">
               <h2 className="font-bold text-xl">Projetos que usam a api</h2>
-              <NewProjectModal />
+              <NewProjectModal apiDetails={apiDetails} />
             </div>
             <div className="w-[calc(100%-3rem)]">
               <CarouselProject />

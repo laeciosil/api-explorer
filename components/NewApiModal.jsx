@@ -9,11 +9,11 @@ import { useUser } from '../hooks/useUser';
 
 export default function NewApiModal() {
   const { isCreatingApi } = parseCookies();
-  const [isOpenApiModal, setIsOpenApiModal] = useState(!!isCreatingApi);
   const { token, getApis } = useUser();
   const [url, setUrl] = useState('');
   const [category, setCategory] = useState('Anime');
   const [description, setDescription] = useState('');
+  const [isOpenApiModal, setIsOpenApiModal] = useState(!!isCreatingApi);
 
   function closeModal() {
     destroyCookie(null, 'isCreatingApi');
