@@ -9,7 +9,8 @@ import { api } from '../services';
 import { useUser } from '../hooks/useUser';
 
 export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isCreatingEvaluation } = parseCookies();
+  const [isOpen, setIsOpen] = useState(!!isCreatingEvaluation);
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState('');
   const { token } = useUser();
@@ -55,10 +56,6 @@ export default function EvaluationModal({ apiId, setEvaluations, typeButton }) {
       toast.error(error.response.data.message, { theme });
     }
   }
-
-  const { isCreatingEvaluation } = parseCookies();
-
-  if (isCreatingEvaluation && !isOpen) openModal();
 
   return (
     <>
