@@ -6,11 +6,10 @@ import { formatDate } from './utils';
 
 function EvaluationSection({ evaluations, setEvaluations, apiId }) {
   const STAR_NUMBER = 5;
-  const rating = evaluations.reduce((acc, curr) => acc + curr.rating, 0) / evaluations.length;
+  const rating = evaluations.reduce((acc, curr) => acc + curr.rating, 0) / evaluations.length || 0;
   const { user } = useUser();
 
   const evaluationExists = user && evaluations.find(({ user_id: id }) => id === user.id);
-
   return (
     evaluations && (
       <section className="w-full flex flex-col justify-center items-center space-y-5">
