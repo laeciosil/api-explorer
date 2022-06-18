@@ -11,7 +11,7 @@ export default function NewApiModal() {
   const { isCreatingApi } = parseCookies();
   const { token, getApis } = useUser();
   const [url, setUrl] = useState('');
-  const [category, setCategory] = useState('Anime');
+  const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [isOpenApiModal, setIsOpenApiModal] = useState(!!isCreatingApi);
 
@@ -19,6 +19,9 @@ export default function NewApiModal() {
     destroyCookie(null, 'isCreatingApi');
     setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
     setIsOpenApiModal(false);
+    setCategory('');
+    setDescription('');
+    setUrl('');
   }
 
   function openModal() {
@@ -28,6 +31,7 @@ export default function NewApiModal() {
   async function handleAddApi() {
     const theme = localStorage.getItem('theme') || 'light';
     toast.info('Aguarde...', { theme, autoClose: 500 });
+
     try {
       const response = await api.post(
         '/apis',
@@ -47,6 +51,7 @@ export default function NewApiModal() {
       toast.error(error.response.data.message, { theme });
     }
   }
+  const isDisabled = !url || !category || !description;
 
   return (
     <>
@@ -108,6 +113,7 @@ export default function NewApiModal() {
                   <div className="mt-4">
                     <button
                       type="button"
+                      disabled={isDisabled}
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
                       onClick={handleAddApi}
                     >
