@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { X } from 'phosphor-react';
 import { toast } from 'react-toastify';
 import { useSession, signIn } from 'next-auth/react';
@@ -11,7 +11,7 @@ import { useData } from '../hooks/useData';
 
 export default function EvaluationModal({ typeButton, evaluationByUser }) {
   const { isCreatingEvaluation } = parseCookies();
-  const [isOpen, setIsOpen] = useState(!!isCreatingEvaluation);
+  const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState('');
   const { token } = useUser();
@@ -20,11 +20,12 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
   function closeModal() {
     destroyCookie(null, 'isCreatingEvaluation');
     destroyCookie(null, 'id');
-    setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
     setIsOpen(false);
   }
 
   function openModal() {
+    setRating(evaluationByUser.rating || 0);
+    setMessage(evaluationByUser.message || '');
     if (session) {
       setIsOpen(true);
     } else {
@@ -37,6 +38,12 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
     const response = await api.get(`ratings/by-api/${apiById.id}`);
     setEvaluations(response.data);
   }
+
+  useEffect(() => {
+    if (session && !!isCreatingEvaluation) {
+      openModal();
+    }
+  }, []);
 
   async function handleAddEvaluation() {
     const theme = localStorage.getItem('theme') || 'light';
@@ -54,11 +61,12 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
       await getEvaluations();
       closeModal();
       toast.success(response.data.message, { theme });
+      setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
     } catch (error) {
       toast.error(error.response.data.message, { theme });
     }
   }
-
+  const isDisabled = rating === evaluationByUser.rating && message === evaluationByUser.message;
   return (
     <>
       <button
@@ -112,18 +120,19 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
                     <EvaluationForm
                       setMessage={setMessage}
                       setRating={setRating}
-                      message={evaluationByUser.message || message}
-                      rating={evaluationByUser.rating || rating}
+                      message={message}
+                      rating={rating}
                     />
                   </div>
 
                   <div className="mt-4">
                     <button
                       type="button"
+                      disabled={isDisabled}
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium  hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
                       onClick={handleAddEvaluation}
                     >
-                      {evaluationByUser ? 'Atualizar' : 'Adicionar'}
+                      {evaluationByUser.rating ? 'Atualizar' : 'Adicionar'}
                     </button>
                   </div>
                 </Dialog.Panel>
