@@ -51,7 +51,7 @@ export default function NewApiModal() {
       toast.error(error.response.data.message, { theme });
     }
   }
-  const isDisabled = !url || !category || !description;
+  const isDisabled = !url || !category || category === 'Qual a categoria?' || !description;
 
   return (
     <>
