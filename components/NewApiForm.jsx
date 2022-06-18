@@ -6,6 +6,8 @@ function NewApiForm(props) {
     setUrl, setCategory, setDescription, category, description,
   } = props;
 
+  const categoriesOptions = category ? categories : [{ id: 'bd5d63bf-1a06-4071-886b-be0e5a008766', name: 'Qual a categoria?' }, ...categories];
+
   return (
     <form className="w-full flex flex-col gap-4">
       <label
@@ -33,7 +35,7 @@ function NewApiForm(props) {
           value={category}
           onChange={({ target }) => setCategory(target.value)}
         >
-          {categories.map((cat) => (
+          {categoriesOptions.map((cat) => (
             <option key={cat.id} value={cat.name}>{cat.name}</option>
           ))}
         </select>
