@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { X, PencilSimple } from 'phosphor-react';
 import { toast } from 'react-toastify';
+import { setCookie } from 'nookies';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
 import { useData } from '../hooks/useData';
@@ -47,6 +48,7 @@ export default function EditApiModal({ obj }) {
 
       await getApis(token);
       toast.success(response.data.message, { theme });
+      setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
       closeModal();
     } catch (error) {
       toast.error(error.response.data.message, { theme });
