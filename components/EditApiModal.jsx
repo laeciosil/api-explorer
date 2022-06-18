@@ -2,10 +2,10 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { X, PencilSimple } from 'phosphor-react';
 import { toast } from 'react-toastify';
-import NewApiForm from './NewApiForm';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
 import { useData } from '../hooks/useData';
+import EditApiForm from './EditApiForm';
 
 export default function EditApiModal({ obj }) {
   const { setEditApi } = useData();
@@ -18,6 +18,9 @@ export default function EditApiModal({ obj }) {
   function closeModal() {
     setEditApi({});
     setIsOpenEdit(false);
+    setCategory('');
+    setDescription('');
+    setUrl('');
   }
 
   function openModal() {
@@ -101,7 +104,7 @@ export default function EditApiModal({ obj }) {
                     </button>
                   </Dialog.Title>
                   <div className="mt-2">
-                    <NewApiForm
+                    <EditApiForm
                       setCategory={setCategory}
                       setDescription={setDescription}
                       category={category}
