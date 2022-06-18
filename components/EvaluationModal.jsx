@@ -12,8 +12,8 @@ import { useData } from '../hooks/useData';
 export default function EvaluationModal({ typeButton, evaluationByUser }) {
   const { isCreatingEvaluation } = parseCookies();
   const [isOpen, setIsOpen] = useState(!!isCreatingEvaluation);
-  const [rating, setRating] = useState(evaluationByUser.rating || 0);
-  const [message, setMessage] = useState(evaluationByUser.message || '');
+  const [rating, setRating] = useState(0);
+  const [message, setMessage] = useState('');
   const { token } = useUser();
   const { data: session } = useSession();
   const { setEvaluations, apiById } = useData();
@@ -112,8 +112,8 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
                     <EvaluationForm
                       setMessage={setMessage}
                       setRating={setRating}
-                      message={message}
-                      rating={rating}
+                      message={evaluationByUser.message || message}
+                      rating={evaluationByUser.rating || rating}
                     />
                   </div>
 
