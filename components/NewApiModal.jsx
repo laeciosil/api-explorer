@@ -44,7 +44,8 @@ export default function NewApiModal() {
       );
       if (response.status === 201) {
         await getApis(token);
-        toast.success('API adicionada com sucesso!', { theme });
+        toast.success(response.data.message, { theme });
+        setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
         closeModal();
       }
     } catch (error) {
