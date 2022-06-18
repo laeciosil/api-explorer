@@ -17,7 +17,6 @@ export default function NewApiModal() {
 
   function closeModal() {
     destroyCookie(null, 'isCreatingApi');
-    setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
     setIsOpenApiModal(false);
     setCategory('');
     setDescription('');
