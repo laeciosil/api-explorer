@@ -12,7 +12,7 @@ export default function EditApiModal({ obj }) {
   const { token, getApis } = useUser();
   const [url, setUrl] = useState('');
   const [isOpenEdit, setIsOpenEdit] = useState(false);
-  const [category, setCategory] = useState('Anime');
+  const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
 
   function closeModal() {
@@ -49,7 +49,7 @@ export default function EditApiModal({ obj }) {
       toast.error(error.response.data.message, { theme });
     }
   }
-
+  const isDisabled = category === obj.category && description === obj.description;
   return (
     <>
       <button
@@ -114,10 +114,11 @@ export default function EditApiModal({ obj }) {
                   <div className="mt-4">
                     <button
                       type="button"
+                      disabled={isDisabled}
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
                       onClick={handleAddApi}
                     >
-                      Salvar
+                      Atualizar
                     </button>
                   </div>
                 </Dialog.Panel>
