@@ -31,7 +31,7 @@ export default function EditApiModal({ obj }) {
     setIsOpenEdit(true);
   }
 
-  async function handleAddApi() {
+  async function handleEditApi() {
     const theme = localStorage.getItem('theme') || 'light';
     toast.info('Aguarde...', { theme, autoClose: 500 });
     try {
@@ -119,7 +119,7 @@ export default function EditApiModal({ obj }) {
                       type="button"
                       disabled={isDisabled}
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
-                      onClick={handleAddApi}
+                      onClick={handleEditApi}
                     >
                       Atualizar
                     </button>
