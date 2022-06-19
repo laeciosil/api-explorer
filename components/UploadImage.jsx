@@ -1,5 +1,6 @@
 import Dropzone from 'react-dropzone';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { api } from '../services';
 
 export function UploadImage({ setUrlImg, setIsUploading }) {
@@ -10,15 +11,17 @@ export function UploadImage({ setUrlImg, setIsUploading }) {
     setPath('Carregando imagem...');
     const data = new FormData();
     data.append('file', uploadedFile, uploadedFile.name);
+    const theme = localStorage.getItem('theme') || 'light';
     api
-      .post('/fronts/up', data)
+      .post('/fronts/upload', data)
       .then((response) => {
         setUrlImg(response.data.url);
         setPath(response.data.url);
         setIsUploading(false);
       })
-      .catch(() => {
+      .catch((error) => {
         console.log('error');
+        toast.error(error.response.data.message, { theme });
       });
   }
   return (
