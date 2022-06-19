@@ -19,7 +19,7 @@ export default function CarouselProject() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: apiById.fronts.length < 3 ? apiById.fronts.length : 3,
     slidesToScroll: 1,
     // initialSlide: 0,
     responsive: [
