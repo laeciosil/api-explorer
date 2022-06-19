@@ -12,6 +12,8 @@ export default function NewProjectModal({ apiDetails }) {
   const [isOpen, setIsOpen] = useState(false);
   const [url, setUrl] = useState('');
   const [urlDeploy, setUrlDeploy] = useState('');
+  const [urlImg, setUrlImg] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
 
   const { token } = useUser();
 
@@ -35,6 +37,7 @@ export default function NewProjectModal({ apiDetails }) {
           url,
           description: 'descrição teste',
           url_deploy: urlDeploy,
+          url_img: urlImg,
           category,
           api_id: id,
         },
@@ -103,12 +106,18 @@ export default function NewProjectModal({ apiDetails }) {
                     </button>
                   </Dialog.Title>
                   <div className="w-full mt-2">
-                    <NewProjectForm setUrl={setUrl} setUrlDeploy={setUrlDeploy} />
+                    <NewProjectForm
+                      setUrl={setUrl}
+                      setUrlDeploy={setUrlDeploy}
+                      setUrlImg={setUrlImg}
+                      setIsUploading={setIsUploading}
+                    />
                   </div>
 
                   <div className="mt-6">
                     <button
                       type="button"
+                      disabled={isUploading}
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
                       onClick={handleAddFront}
                     >
