@@ -29,7 +29,7 @@ export default function Home() {
       router.push('/profile');
     } else {
       setCookie(null, 'isCreatingApi', 'true', { maxAge: 60 * 60, path: '/' });
-      signIn();
+      signIn('github');
     }
   }
 

@@ -15,7 +15,7 @@ function MenuDropdownLogin() {
       await router.push('/');
       signOut();
     } else {
-      signIn();
+      signIn('github');
     }
   };
 
