@@ -31,7 +31,7 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
     } else {
       setCookie(null, 'isCreatingEvaluation', 'true', { maxAge: 60 * 60, path: '/' });
       setCookie(null, 'id', `${apiById.id}`, { maxAge: 60 * 60, path: '/' });
-      signIn('github');
+      signIn();
     }
   }
   async function getEvaluations() {
