@@ -1,7 +1,7 @@
 import { UploadImage } from './UploadImage';
 
 function NewProjectForm({
-  setUrl, setUrlDeploy, setUrlImg, setIsUploading,
+  setUrl, setUrlDeploy, handleDrop, path,
 }) {
   return (
     <form className="w-full flex flex-col space-y-3">
@@ -28,7 +28,7 @@ function NewProjectForm({
         />
       </label>
 
-      <UploadImage setUrlImg={setUrlImg} setIsUploading={setIsUploading} />
+      <UploadImage handleDrop={handleDrop} path={path} />
 
     </form>
   );

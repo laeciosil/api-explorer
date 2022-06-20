@@ -12,25 +12,55 @@ export default function NewProjectModal({ apiDetails }) {
   const [isOpen, setIsOpen] = useState(false);
   const [url, setUrl] = useState('');
   const [urlDeploy, setUrlDeploy] = useState('');
-  const [urlImg, setUrlImg] = useState('');
   const [isUploading, setIsUploading] = useState(false);
-
+  const [photo, setPhoto] = useState({});
+  const [path, setPath] = useState('Escolha uma imagem');
   const { token } = useUser();
 
   const { getApiById } = useData();
 
   function closeModal() {
     setIsOpen(false);
+    setUrl('');
+    setUrlDeploy('');
+    setPhoto({});
+    setPath('Escolha uma imagem');
   }
 
   function openModal() {
     setIsOpen(true);
   }
 
+  function handleDrop([uploadedFile]) {
+    setPath(uploadedFile.path);
+    setPhoto(uploadedFile);
+  }
+
+  async function addPhoto() {
+    setIsUploading(true);
+    setPath('Enviando...');
+    const theme = localStorage.getItem('theme') || 'light';
+    const data = new FormData();
+    data.append('file', photo, photo.name);
+    try {
+      const response = await api.post('/fronts/upload', data);
+      return response.data.location;
+    } catch (error) {
+      toast.error(error.response.data.message, { theme });
+    }
+    return setIsUploading(false);
+  }
+
   async function handleAddFront() {
     const theme = localStorage.getItem('theme') || 'light';
     toast.info('Aguarde...', { theme, autoClose: 500 });
+
     try {
+      let urlImg = '';
+      if (photo.name) {
+        urlImg = await addPhoto();
+      }
+
       const response = await api.post(
         '/fronts',
         {
@@ -109,8 +139,8 @@ export default function NewProjectModal({ apiDetails }) {
                     <NewProjectForm
                       setUrl={setUrl}
                       setUrlDeploy={setUrlDeploy}
-                      setUrlImg={setUrlImg}
-                      setIsUploading={setIsUploading}
+                      handleDrop={handleDrop}
+                      path={path}
                     />
                   </div>
 
