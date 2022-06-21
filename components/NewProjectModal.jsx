@@ -25,6 +25,7 @@ export default function NewProjectModal({ apiDetails }) {
     setUrlDeploy('');
     setPhoto({});
     setPath('Escolha uma imagem');
+    getApiById(id);
   }
 
   function openModal() {
@@ -36,15 +37,18 @@ export default function NewProjectModal({ apiDetails }) {
     setPhoto(uploadedFile);
   }
 
-  async function addPhoto() {
+  async function addPhoto(idFront) {
     setIsUploading(true);
     setPath('Enviando...');
     const theme = localStorage.getItem('theme') || 'light';
     const data = new FormData();
     data.append('file', photo, photo.name);
+
     try {
-      const response = await api.post('/fronts/upload', data);
-      return response.data.location;
+      const response = await api.post(`/fronts/upload/${idFront}`, data);
+
+      toast.success(response.data.message, { theme });
+      closeModal();
     } catch (error) {
       toast.error(error.response.data.message, { theme });
     }
@@ -56,18 +60,13 @@ export default function NewProjectModal({ apiDetails }) {
     toast.info('Aguarde...', { theme, autoClose: 500 });
 
     try {
-      let urlImg = '';
-      if (photo.name) {
-        urlImg = await addPhoto();
-      }
-
       const response = await api.post(
         '/fronts',
         {
           url,
           description: 'descrição teste',
           url_deploy: urlDeploy,
-          url_img: urlImg,
+          url_img: '',
           category,
           api_id: id,
         },
@@ -77,7 +76,11 @@ export default function NewProjectModal({ apiDetails }) {
           },
         },
       );
-      await getApiById(id);
+      if (photo.name) {
+        await addPhoto(response.data.id);
+        return;
+      }
+
       toast.success(response.data.message, { theme });
       closeModal();
     } catch (error) {

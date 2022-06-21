@@ -13,6 +13,7 @@ export function UploadImage({ handleDrop, path }) {
           padding: '7px',
         }}
         >
+
           <input
             {...getInputProps()}
           />

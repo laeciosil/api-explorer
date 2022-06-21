@@ -27,7 +27,9 @@ function NewProjectForm({
           required
         />
       </label>
-
+      <label htmlFor="upload">
+        Foto de capa:
+      </label>
       <UploadImage handleDrop={handleDrop} path={path} />
 
     </form>
