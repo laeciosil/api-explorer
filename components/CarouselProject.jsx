@@ -56,7 +56,7 @@ export default function CarouselProject() {
         {/* slider está mostrando os fronts duplicados. */}
         {apiById && apiById.fronts.map((front) => (
           <div key={front} className="cursor-pointer">
-            <CardProject api={front} />
+            <CardProject front={front} />
           </div>
         ))}
 

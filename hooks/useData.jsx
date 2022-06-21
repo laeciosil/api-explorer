@@ -12,6 +12,7 @@ export function DataProvider({ children }) {
   const [categories, setCategories] = useState([]);
   const [filterAPi, setFilterAPi] = useState({});
   const [apiById, setApiById] = useState(null);
+  const [frontById, setFrontById] = useState(null);
   const [evaluations, setEvaluations] = useState([]);
 
   async function getApis() {
@@ -36,6 +37,12 @@ export function DataProvider({ children }) {
     setEvaluations(response.data.evaluations);
   }
 
+  async function getFrontById(id) {
+    const response = await api.get(`/fronts/${id}`);
+    setFrontById(response.data[0]);
+    // setEvaluations(response.data.evaluations);
+  }
+
   return (
     <DataContext.Provider
       value={{
@@ -52,6 +59,8 @@ export function DataProvider({ children }) {
         apiById,
         evaluations,
         setEvaluations,
+        getFrontById,
+        frontById,
       }}
     >
       {children}
