@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { FaGithub } from 'react-icons/fa';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import EvaluationSection from '../../components/EvaluationSection';
 import { Widget } from '../../components/FeedbackWidget/Widget';
 import { useData } from '../../hooks/useData';
 
@@ -62,9 +61,6 @@ function FrontDetails() {
               </div>
             </section>
             <img src={frontById.url_img} alt={frontById.name} />
-            <EvaluationSection
-              apiId={frontById.id}
-            />
           </section>
         </main>
         <Widget />
