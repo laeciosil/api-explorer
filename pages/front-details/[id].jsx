@@ -1,22 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { FaGithub } from 'react-icons/fa';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { Widget } from '../../components/FeedbackWidget/Widget';
 import { useData } from '../../hooks/useData';
+import { useUser } from '../../hooks/useUser';
+import EditPhotoModal from '../../components/EditPhotoModal ';
 
 function FrontDetails() {
   const router = useRouter();
+  const [isOwner, setIsOwner] = useState(false);
   const { id } = router.query;
   const { getFrontById, frontById } = useData();
-
+  const { user } = useUser();
   useEffect(() => {
     async function getFrontDetails() {
       if (id) {
         getFrontById(id);
       }
     }
+    if (frontById && frontById.user_id === user.id) setIsOwner(true);
     getFrontDetails();
   }, [id]);
   return (
@@ -59,6 +63,11 @@ function FrontDetails() {
                   </div>
                 </div>
               </div>
+            </section>
+            <section>
+              {
+               isOwner && <EditPhotoModal front={frontById} />
+              }
             </section>
             <img src={frontById.url_img} alt={frontById.name} />
           </section>
