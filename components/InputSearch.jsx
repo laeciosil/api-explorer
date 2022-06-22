@@ -23,14 +23,14 @@ function InputSearch() {
         className="w-full bg-light-background dark:bg-dark-background p-3 pl-12 border-r-0 rounded-l-md text-light-text dark:text-dark-text focus:border-light-secondary focus:ring-light-secondary focus:ring-0 resize-none focus:outline-none"
         onChange={changeName}
         onKeyUp={pressEnter}
-        placeholder="Search API's"
+        placeholder="Buscar API's"
       />
       <button
         type="button"
         className="bg-light-secondary text-dark-text px-8 border-r-0 rounded-r-md transition hover:bg-[#737eff]"
         onClick={() => router.push('/search')}
       >
-        Search
+        Buscar
       </button>
     </div>
   );
