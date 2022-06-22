@@ -45,8 +45,11 @@ export default function NewProjectModal({ apiDetails }) {
     data.append('file', photo, photo.name);
 
     try {
-      const response = await api.post(`/fronts/upload/${idFront}`, data);
-
+      const response = await api.put(`/fronts/image/${idFront}`, data, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
       toast.success(response.data.message, { theme });
       closeModal();
     } catch (error) {
