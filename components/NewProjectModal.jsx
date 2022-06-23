@@ -1,13 +1,16 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { X } from 'phosphor-react';
 import { toast } from 'react-toastify';
+import { signIn, useSession } from 'next-auth/react';
+import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { api } from '../services';
 import NewProjectForm from './NewProjectForm';
 import { useUser } from '../hooks/useUser';
 import { useData } from '../hooks/useData';
 
 export default function NewProjectModal({ apiDetails }) {
+  const { isCreatingProject } = parseCookies();
   const { category, id } = apiDetails;
   const [isOpen, setIsOpen] = useState(false);
   const [url, setUrl] = useState('');
@@ -16,6 +19,7 @@ export default function NewProjectModal({ apiDetails }) {
   const [photo, setPhoto] = useState({});
   const [path, setPath] = useState('Escolha uma imagem');
   const { token } = useUser();
+  const { data: session } = useSession();
 
   const { getApiById } = useData();
 
@@ -26,10 +30,18 @@ export default function NewProjectModal({ apiDetails }) {
     setPhoto({});
     setPath('Escolha uma imagem');
     getApiById(id);
+    destroyCookie(null, 'isCreatingProject', {
+      path: '/',
+    });
   }
 
   function openModal() {
-    setIsOpen(true);
+    if (session) {
+      setIsOpen(true);
+    } else {
+      setCookie(null, 'isCreatingProject', 'true', { maxAge: 60 * 60, path: '/' });
+      signIn('github');
+    }
   }
 
   function handleDrop([uploadedFile]) {
@@ -90,6 +102,12 @@ export default function NewProjectModal({ apiDetails }) {
       toast.error(error.response.data.message, { theme });
     }
   }
+
+  useEffect(() => {
+    if (isCreatingProject) {
+      openModal();
+    }
+  }, []);
 
   return (
     <>
