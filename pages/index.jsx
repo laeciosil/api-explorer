@@ -12,9 +12,7 @@ export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
   const { getApis } = useData();
-  const {
-    refresh, isCreatingApi, isCreatingEvaluation, id,
-  } = parseCookies();
+  const { refresh, isCreatingApi } = parseCookies();
 
   useEffect(() => {
     if (refresh) {
@@ -33,12 +31,7 @@ export default function Home() {
     }
   }
 
-  function redirectEvaluation() {
-    router.push(`/api-details/${id}`);
-  }
-
   if (session && isCreatingApi) redirectProfile();
-  if (session && isCreatingEvaluation) redirectEvaluation();
 
   return (
     <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden scrollbar-thumb-zinc-400 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin">
