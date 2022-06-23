@@ -9,20 +9,6 @@ function MenuDropdownLogin() {
   const router = useRouter();
   const { data: session } = useSession();
   const { user } = useUser();
-  // const  jwt = JSON.parse(localStorage.getItem("apiExplorer:user"))
-  const login = async () => {
-    if (session) {
-      await router.push('/');
-      signOut();
-    } else {
-      signIn('github');
-    }
-  };
-
-  const logout = async () => {
-    await router.push('/');
-    signOut();
-  };
 
   const { getJWTToken } = useUser();
 
@@ -52,7 +38,7 @@ function MenuDropdownLogin() {
             <button
               type="button"
               className="p-2 flex gap-2 justify-center items-center rounded-md border-transparent w-full border-2 text-[#6772E5] border-[#6772E5] hover:bg-[#6772E5] hover:text-dark-text"
-              onClick={() => login()}
+              onClick={() => signIn('github')}
             >
               <AiFillGithub size={20} />
               GITHUB
@@ -70,7 +56,7 @@ function MenuDropdownLogin() {
             <button
               type="button"
               className="flex items-center w-full py-2 pl-3 pr-4 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 snap-start"
-              onClick={logout}
+              onClick={signOut}
             >
               Sair
             </button>
