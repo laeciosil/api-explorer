@@ -9,41 +9,53 @@ import { api } from '../services';
 import { useUser } from '../hooks/useUser';
 import { useData } from '../hooks/useData';
 
-export default function EvaluationModal({ typeButton, evaluationByUser }) {
+export default function EvaluationModal() {
   const { isCreatingEvaluation } = parseCookies();
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState('');
+  const [userRating, setUserRating] = useState({});
   const { token } = useUser();
   const { data: session } = useSession();
   const { setEvaluations, apiById } = useData();
-  function closeModal() {
-    destroyCookie(null, 'isCreatingEvaluation');
-    destroyCookie(null, 'id');
+  const { evaluations } = useData();
+  const { user } = useUser();
+
+  async function closeModal() {
+    destroyCookie(null, 'isCreatingEvaluation', {
+      path: '/',
+    });
     setIsOpen(false);
+    setUserRating({});
+    setRating(0);
+    setMessage('');
+  }
+
+  function setEvaluationByUser() {
+    const ratingExists = evaluations.find(({ user_id: id }) => id === user.id) || {};
+    setUserRating(ratingExists);
+    setRating(ratingExists.rating || 0);
+    setMessage(ratingExists.message || '');
   }
 
   function openModal() {
-    setRating(evaluationByUser.rating || 0);
-    setMessage(evaluationByUser.message || '');
+    setIsOpen(true);
+    setEvaluationByUser();
+  }
+
+  function verifySession() {
     if (session) {
-      setIsOpen(true);
+      openModal();
     } else {
       setCookie(null, 'isCreatingEvaluation', 'true', { maxAge: 60 * 60, path: '/' });
-      setCookie(null, 'id', `${apiById.id}`, { maxAge: 60 * 60, path: '/' });
-      signIn();
+      signIn('github');
     }
   }
+
   async function getEvaluations() {
     const response = await api.get(`ratings/by-api/${apiById.id}`);
     setEvaluations(response.data);
   }
-
-  useEffect(() => {
-    if (session && !!isCreatingEvaluation) {
-      openModal();
-    }
-  }, []);
 
   async function handleAddEvaluation() {
     const theme = localStorage.getItem('theme') || 'light';
@@ -66,15 +78,26 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
       toast.error(error.response.data.message, { theme });
     }
   }
-  const isDisabled = rating === evaluationByUser.rating && message === evaluationByUser.message;
+
+  useEffect(() => {
+    if (isCreatingEvaluation && user) {
+      openModal();
+      return;
+    }
+    if (user && evaluations) {
+      setEvaluationByUser();
+    }
+  }, [user, evaluations]);
+
+  const isDisabled = userRating && rating === userRating.rating && message === userRating.message;
   return (
     <>
       <button
         type="button"
-        onClick={openModal}
+        onClick={verifySession}
         className="rounded-md cursor-pointer py-2 px-7 border-2 border-light-secondary text-base text-light-secondary hover:bg-light-secondary hover:text-dark-text transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-light-primary dark:focus-visible:ring-offset-dark-primary focus-visible:ring-light-secondary focus-visible:ring-opacity-50"
       >
-        {typeButton}
+        {userRating.rating ? 'Editar' : 'Avaliar'}
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -133,7 +156,7 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
                       className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-light-secondary px-4 py-2 text-sm font-medium  hover:bg-[#737eff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
                       onClick={handleAddEvaluation}
                     >
-                      {evaluationByUser.rating ? 'Atualizar' : 'Adicionar'}
+                      {userRating.rating ? 'Atualizar' : 'Adicionar'}
                     </button>
                   </div>
                 </Dialog.Panel>

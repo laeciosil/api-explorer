@@ -1,6 +1,5 @@
 import { Star } from 'phosphor-react';
 import { useData } from '../hooks/useData';
-import { useUser } from '../hooks/useUser';
 import EvaluationModal from './EvaluationModal';
 import StarRating from './StarRating';
 import { formatDate } from './utils';
@@ -9,9 +8,7 @@ function EvaluationSection() {
   const { evaluations } = useData();
   const STAR_NUMBER = 5;
   const rating = evaluations.reduce((acc, curr) => acc + curr.rating, 0) / evaluations.length || 0;
-  const { user } = useUser();
 
-  const evaluationExists = user && evaluations.find(({ user_id: id }) => id === user.id);
   return (
     evaluations && (
       <section className="w-full flex flex-col justify-center items-center space-y-5">
@@ -27,10 +24,7 @@ function EvaluationSection() {
             <p className="text-base text-[#979899] font-normal">{`baseada em ${evaluations.length} avaliações`}</p>
           </div>
           <div className="flex">
-            <EvaluationModal
-              evaluationByUser={evaluationExists || {}}
-              typeButton={evaluationExists ? 'Editar' : 'Avaliar'}
-            />
+            <EvaluationModal />
           </div>
         </div>
         {evaluations.length === 0 ? (

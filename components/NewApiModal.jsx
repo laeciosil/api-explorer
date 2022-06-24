@@ -16,7 +16,9 @@ export default function NewApiModal() {
   const [isOpenApiModal, setIsOpenApiModal] = useState(!!isCreatingApi);
 
   function closeModal() {
-    destroyCookie(null, 'isCreatingApi');
+    destroyCookie(null, 'isCreatingApi', {
+      path: '/',
+    });
     setIsOpenApiModal(false);
     setCategory('');
     setDescription('');

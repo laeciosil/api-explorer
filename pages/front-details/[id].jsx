@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { FaGithub } from 'react-icons/fa';
 import Footer from '../../components/Footer';
@@ -10,7 +10,6 @@ import EditPhotoModal from '../../components/EditPhotoModal ';
 
 function FrontDetails() {
   const router = useRouter();
-  const [isOwner, setIsOwner] = useState(false);
   const { id } = router.query;
   const { getFrontById, frontById } = useData();
   const { user } = useUser();
@@ -20,7 +19,6 @@ function FrontDetails() {
         getFrontById(id);
       }
     }
-    if (frontById && frontById.user_id === user.id) setIsOwner(true);
     getFrontDetails();
   }, [id]);
   return (
@@ -66,7 +64,7 @@ function FrontDetails() {
             </section>
             <section>
               {
-               isOwner && <EditPhotoModal front={frontById} />
+               user && frontById.user_id === user.id && <EditPhotoModal front={frontById} />
               }
             </section>
             <img src={frontById.url_img} alt={frontById.name} />

@@ -52,6 +52,7 @@ function MenuDropdownLogin() {
               type="button"
               className="p-2 flex gap-2 justify-center items-center rounded-md border-transparent w-full border-2 text-[#6772E5] border-[#6772E5] hover:bg-[#6772E5] hover:text-dark-text"
               onClick={() => login()}
+              // onClick={() => signIn('github')}
               title="Botão que faz login com o github"
             >
               <AiFillGithub size={20} />
@@ -72,6 +73,7 @@ function MenuDropdownLogin() {
               type="button"
               className="flex items-center w-full py-2 pl-3 pr-4 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 snap-start text-light-text dark:text-dark-text"
               onClick={logout}
+              // onClick={signOut}
               title="Botão que faz logout"
             >
               Sair
