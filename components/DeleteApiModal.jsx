@@ -35,7 +35,7 @@ export default function DeleteApiModal() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-[#888A93] bg-opacity-60 dark:bg-[#121727] dark:bg-opacity-60" />
+            <div className="fixed inset-0 bg-black/20 backdrop-blur-sm dark:bg-slate-900/80" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
