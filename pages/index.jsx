@@ -45,7 +45,7 @@ export default function Home() {
       <Header />
       <main className="w-full grow flex items-center justify-center relative h-screen bg-light-background dark:bg-dark-background">
         <section className="w-[calc(100vw-2rem)] md:w-[48rem] space-y-10 flex flex-col justify-center items-center">
-          <h1 className="text-center text-6xl font-bold">
+          <h1 className="text-center md:text-6xl text-4xl font-bold text-light-text dark:text-dark-text">
             Encontre a
             {' '}
             <span className="text-light-secondary">API</span>
@@ -54,7 +54,7 @@ export default function Home() {
             {' '}
             <span className="text-light-secondary">projeto</span>
           </h1>
-          <h2 className="text-[#979899] text-center text-[22px] font-normal">
+          <h2 className="text-[#979899] text-center md:text-xl text-lg font-normal">
             <button
               type="button"
               className="text-light-secondary hover:text-[#737eff] cursor-pointer underline"
@@ -65,8 +65,8 @@ export default function Home() {
             {' '}
             e compartilhe com a comunidade.
           </h2>
-          <div className="w-[calc(100%-3rem)] space-y-5">
-            <span className="text-xl font-bold">Recomendações</span>
+          <div className="md:w-full md:pl-0 w-screen pl-4 space-y-5">
+            <span className="text-lg font-bold text-light-text dark:text-dark-text">Recomendações</span>
             <Carousel />
           </div>
         </section>
