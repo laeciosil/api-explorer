@@ -52,7 +52,7 @@ export function FeedbackContentStep({
         >
           <ArrowLeft weight="bold" className="w-4 h-4" />
         </button>
-        <span className="text-xl leading-6 flex items-center gap-2">
+        <span className="text-xl justify-center leading-6 flex items-center gap-2 text-light-text dark:text-dark-text">
           <img
             src={feedbackTypeInfo.image.source}
             alt={feedbackTypeInfo.image.alt}
@@ -75,6 +75,7 @@ export function FeedbackContentStep({
             className="p-2 text-dark-text bg-dark-secondary rounded-md border-transparent flex-1 flex justify-center items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-background dark:focus:ring-offset-dark-primary focus:ring-dark-secondary transition-colors disabled:opacity-50 disabled:hover:bg-dark-secondary"
             disabled={message.length === 0}
             onClick={handleSubmitFeedback}
+            title="Botão de enviar feedback"
           >
             Enviar feedback
           </button>

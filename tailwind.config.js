@@ -1,17 +1,20 @@
 module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
   ],
   safelist: [
     {
-      pattern: /./
+      pattern: /./,
     },
   ],
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        sm: '576px',
+      },
       colors: {
         light: {
           primary: '#FBFCFF',
@@ -24,13 +27,14 @@ module.exports = {
           secondary: '#6772E5',
           background: '#111827',
           text: '#FBFCFF',
-        }
-      }
+        },
+      },
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('flowbite/plugin'),
     require('tailwind-scrollbar'),
+    require('daisyui'),
   ],
-}
+};
