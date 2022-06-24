@@ -1,9 +1,25 @@
 import Slider from 'react-slick';
+import {
+  useState, useEffect,
+} from 'react';
 import { useData } from '../hooks/useData';
 import CardApi from './CardApi';
 
 export default function Carousel() {
   const { apis } = useData();
+  const [randomApis, setRandomApis] = useState([]);
+
+  useEffect(() => {
+    const randonApis = () => {
+      const apiList = apis.map((api) => api);
+      for (let i = apiList.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [apiList[i], apiList[j]] = [apiList[j], apiList[i]];
+      }
+      setRandomApis(apiList);
+    };
+    randonApis();
+  }, [apis]);
 
   const settings = {
     // className: "center",
@@ -11,7 +27,7 @@ export default function Carousel() {
     // centerPadding: "60px",
     dots: true,
     // focusOnSelect: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -29,25 +45,33 @@ export default function Carousel() {
       {
         breakpoint: 600,
         settings: {
+          // centerMode: true,
+          variableWidth: true,
+          infinite: false,
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2,
+          arrows: false,
+          // initialSlide: 2,
         },
       },
       {
         breakpoint: 480,
         settings: {
+          // centerMode: true,
+          variableWidth: true,
+          infinite: false,
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false,
         },
       },
     ],
   };
   return (
     <Slider {...settings}>
-      {apis && apis.map((api) => (
-        <div key={api}>
-          <CardApi api={api} numberLength={24} />
+      {apis && randomApis.map((api) => (
+        <div key={api} className="px-[2px]">
+          <CardApi api={api} lengthTitle={24} />
         </div>
       ))}
     </Slider>
