@@ -8,6 +8,10 @@ import NewApiModal from '../components/NewApiModal';
 import { Widget } from '../components/FeedbackWidget/Widget';
 import { useUser } from '../hooks/useUser';
 import EditApiModal from '../components/EditApiModal';
+import DeleteApiModal from '../components/DeleteApiModal';
+// import { api } from '../services';
+import EditPhotoModal from '../components/EditPhotoModal ';
+import DeleteFrontModal from '../components/DeleteFrontModal';
 
 export default function Home() {
   const { user, apis } = useUser();
@@ -33,30 +37,29 @@ export default function Home() {
       <Header />
       {session && (
         <main className="w-full grow flex items-start justify-center relative bg-light-background dark:bg-dark-background">
-          <section className="container w-[calc(100vw-2rem)] md:w-[56rem] my-9 space-y-5 flex flex-col justify-center items-center">
-            <section>
+          <section className="container w-[calc(100vw-2rem)] md:w-[45rem] my-9 space-y-5 flex flex-col justify-center items-center">
+            <section className="flex md:flex-row flex-col items-center justify-center gap-2">
               <Avatar
                 img={user && user.profile}
                 rounded
                 stacked
                 size="xl"
-              >
-                <div className="space-y-3 font-medium dark:text-white">
-                  <h2 className="text-4xl">{user && user.name}</h2>
-                  <button
-                    type="button"
-                    onClick={logout}
-                    className="rounded-md cursor-pointer py-2 px-7 border-2 border-light-secondary text-sm text-light-secondary hover:bg-light-secondary hover:text-dark-text transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-light-primary dark:focus-visible:ring-offset-dark-primary focus-visible:ring-light-secondary focus-visible:ring-opacity-50"
-                  >
-                    Logout
-                  </button>
-                </div>
-              </Avatar>
+              />
+              <div className="space-y-3 font-medium dark:text-white flex flex-col items-center justify-center md:justify-start">
+                <h2 className="md:text-4xl text-2xl">{user && user.name}</h2>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="rounded-md cursor-pointer py-2 px-7 border-2 border-light-secondary text-sm text-light-secondary hover:bg-light-secondary hover:text-dark-text transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-light-primary dark:focus-visible:ring-offset-dark-primary focus-visible:ring-light-secondary focus-visible:ring-opacity-50"
+                >
+                  Logout
+                </button>
+              </div>
             </section>
 
             <section className="w-full flex flex-col justify-center items-center space-y-5">
               <div className="w-full flex items-center justify-between border-b-[1px] dark:border-gray-700">
-                <h2 className="font-bold text-xl">
+                <h2 className="font-bold text-xl text-light-text dark:text-dark-text">
                   Suas
                   {' '}
                   {'api\'s'}
@@ -64,17 +67,61 @@ export default function Home() {
                 </h2>
                 <NewApiModal />
               </div>
+              <p
+                className="w-full text-center text-light-text dark:text-dark-text bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
+              >
+                Não há api's cadastradas.
+              </p>
               {apis.map((item, index) => (
                 <div
                   key={index}
-                  className="w-full grid grid-cols-3 md:grid-cols-4 gap-4 items-center bg-light-primary dark:bg-dark-primary p-5 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
+                  className="w-full grid grid-cols-3 md:grid-cols-4 gap-4 items-center bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
                 >
-                  <h3>{item.name}</h3>
-                  <p className="text-center md:col-span-2 text-[#979899]">
-                    {item.category}
-                  </p>
-                  <div className="flex items-center gap-3 justify-end">
+                  <h3 className="sm:col-span-1 col-span-2 font-medium text-light-text dark:text-dark-text">
+                    {item.name.length > 15
+                      ? `${item.name.slice(0, 15)}...`
+                      : item.name}
+                  </h3>
+                  <div className="hidden text-center md:col-span-2 sm:col-span-1 sm:flex sm:justify-center">
+                    <p className="bg-light-secondary px-1 rounded-md text-xs text-dark-text">
+                      {item.category}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-end">
                     <EditApiModal obj={item} />
+                    <DeleteApiModal />
+                  </div>
+                </div>
+              ))}
+            </section>
+
+            <section className="w-full flex flex-col justify-center items-center space-y-5">
+              <div className="w-full flex items-center justify-between border-b-[1px] dark:border-gray-700">
+                <h2 className="font-bold text-xl text-light-text dark:text-dark-text">
+                  Seus projetos:
+                </h2>
+              </div>
+              <p
+                className="w-full text-center text-light-text dark:text-dark-text bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
+              >
+                Não há projetos cadastrados.
+              </p>
+              {apis.map((item, index) => (
+                <div
+                  key={index}
+                  className="w-full grid grid-cols-3 md:grid-cols-4 gap-4 items-center bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
+                >
+                  <div>
+                    <img src="images/explorer.png" alt="default" className="object-cover h-20 w-40 rounded-md" />
+                  </div>
+                  <h3 className="text-light-text dark:text-dark-text text-center font-medium md:col-span-2">
+                    {item.name.length > 15
+                      ? `${item.name.slice(0, 15)}...`
+                      : item.name}
+                  </h3>
+                  <div className="flex items-center justify-end">
+                    <EditPhotoModal />
+                    <DeleteFrontModal />
                   </div>
                 </div>
               ))}

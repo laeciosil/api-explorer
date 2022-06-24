@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { X } from 'phosphor-react';
+import { PencilSimple, X } from 'phosphor-react';
 import { toast } from 'react-toastify';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
@@ -71,10 +71,11 @@ export default function EditPhotoModal({ front }) {
     <>
       <button
         type="button"
+        className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
         onClick={openModal}
-        className="text-light-secondary hover:text-[#737eff] font-normal transition-all"
+        title="Editar imagem"
       >
-        Alterar Foto
+        <PencilSimple weight="bold" />
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -113,6 +114,7 @@ export default function EditPhotoModal({ front }) {
                       type="button"
                       onClick={closeModal}
                       className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
+                      title="Excluir"
                     >
                       <X weight="bold" />
                     </button>

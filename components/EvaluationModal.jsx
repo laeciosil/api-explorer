@@ -105,13 +105,14 @@ export default function EvaluationModal({ typeButton, evaluationByUser }) {
                 <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-light-primary dark:bg-dark-primary p-5 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="flex items-center justify-between text-xl font-bold leading-6 text-light-text dark:text-dark-text"
+                    className="relative flex items-center justify-center text-xl font-bold leading-6 text-light-text dark:text-dark-text"
                   >
                     Avaliação
                     <button
                       type="button"
                       onClick={closeModal}
-                      className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
+                      className="absolute -top-1 right-0 rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
+                      title="Fechar de modal de avaliação"
                     >
                       <X weight="bold" />
                     </button>

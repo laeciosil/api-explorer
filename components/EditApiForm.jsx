@@ -12,7 +12,7 @@ function EditApiForm(props) {
     <form className="w-full flex flex-col gap-4">
       <label
         forhtml="url"
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 text-light-text dark:text-dark-text"
       >
         Endereço do repositório:
         <input
@@ -26,7 +26,7 @@ function EditApiForm(props) {
           required
         />
       </label>
-      <label forhtml="categorieselect" className="flex flex-col gap-2">
+      <label forhtml="categorieselect" className="flex flex-col gap-2 text-light-text dark:text-dark-text">
         Selecione a categoria:
         <select
           name="carmodel"

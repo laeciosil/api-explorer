@@ -61,6 +61,7 @@ export default function EditApiModal({ obj }) {
         type="button"
         className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
         onClick={openModal}
+        title="Editar api"
       >
         <PencilSimple weight="bold" />
       </button>
@@ -101,6 +102,7 @@ export default function EditApiModal({ obj }) {
                       type="button"
                       onClick={closeModal}
                       className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
+                      title="Fechar modal"
                     >
                       <X weight="bold" />
                     </button>

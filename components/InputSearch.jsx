@@ -15,22 +15,19 @@ function InputSearch() {
   }
   return (
     <div className="w-full max-w-xl relative flex">
-      <span className="absolute left-4 top-3.5 text-gray-400 text-lg">
-        <MagnifyingGlass />
-      </span>
       <input
         type="text"
-        className="w-full bg-light-background dark:bg-dark-background p-3 pl-12 border-r-0 rounded-l-md text-light-text dark:text-dark-text focus:border-light-secondary focus:ring-light-secondary focus:ring-0 resize-none focus:outline-none"
+        className="w-full bg-light-background dark:bg-dark-background p-2 pl-3 pr-12 border rounded-md text-light-text dark:text-dark-text focus:border-light-secondary focus:ring-light-secondary focus:ring-1 resize-none focus:outline-none"
         onChange={changeName}
         onKeyUp={pressEnter}
-        placeholder="Search API's"
+        placeholder="Pesquisar API's"
       />
       <button
         type="button"
-        className="bg-light-secondary text-dark-text px-8 border-r-0 rounded-r-md transition hover:bg-[#737eff]"
+        className="absolute right-3 top-[9px] text-light-secondary"
         onClick={() => router.push('/search')}
       >
-        Search
+        <MagnifyingGlass weight="bold" size={25} />
       </button>
     </div>
   );

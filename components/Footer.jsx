@@ -6,7 +6,7 @@ function Footer() {
       <div className="w-full flex justify-center items-center p-3">
         <Logo />
       </div>
-      <p className="text-[#979899] font-normal">
+      <p className="text-[#979899] text-sm font-normal">
         Desenvolvido com ♥ por
         {' '}
         <a

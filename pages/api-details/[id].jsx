@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { LinkSimple } from 'phosphor-react';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import EvaluationSection from '../../components/EvaluationSection';
@@ -28,13 +29,13 @@ function ApiDetails() {
         <Header />
         <main className="w-full grow flex items-start justify-center relative bg-light-background dark:bg-dark-background">
           <section className="container w-[calc(100vw-2rem)] md:w-[56rem] my-9 space-y-8 flex flex-col justify-center items-center mb-16">
-            <section>
-              <h2 className="border-b-[1px] pb-1 dark:border-gray-700 font-bold text-xl">
+            <section className="w-full">
+              <h2 className="border-b-[1px] pb-1 dark:border-gray-700 font-bold text-xl text-light-text dark:text-dark-text">
                 {apiById.name}
               </h2>
-              <div className="flex justify-between items-center">
-                <p className="w-full md:w-2/3 pt-4">{apiById.description}</p>
-                <div className="divide-y dark:divide-gray-700 space-y-3">
+              <div className="flex md:flex-row flex-col justify-between items-center">
+                <p className="w-full md:w-2/3 pt-4 text-light-text dark:text-dark-text">{apiById.description}</p>
+                <div className="w-full md:w-auto divide-y dark:divide-gray-700 space-y-3">
                   <div className="pt-4">
                     <div className="space-y-1">
                       <h3 className="text-[#979899] font-bold text-sm">
@@ -43,10 +44,13 @@ function ApiDetails() {
                       <a
                         target="_blank"
                         href={apiById.url_repo}
-                        className="cursor-pointer"
+                        className="cursor-pointer flex items-center gap-1 font-medium text-light-text dark:text-dark-text"
                         rel="noreferrer"
                       >
-                        {apiById.url_repo}
+                        <LinkSimple weight="bold" />
+                        {apiById.url_repo.length > 30
+                          ? `${apiById.url_repo.slice(0, 30)}...`
+                          : apiById.url_repo}
                       </a>
                     </div>
                   </div>
@@ -55,7 +59,7 @@ function ApiDetails() {
                       <h3 className="text-[#979899] font-bold text-sm">
                         Categoria
                       </h3>
-                      <p>{apiById.category}</p>
+                      <p className="font-medium text-light-text dark:text-dark-text">{apiById.category}</p>
                     </div>
                   </div>
                 </div>
@@ -64,12 +68,12 @@ function ApiDetails() {
 
             <section className="w-full flex flex-col justify-center items-center space-y-5">
               <div className="w-full flex items-center justify-between border-b-[1px] pb-1 dark:border-gray-700">
-                <h2 className="font-bold text-xl">Projetos que usam a api</h2>
+                <h2 className="font-bold text-xl text-light-text dark:text-dark-text">Portfólio</h2>
                 <NewProjectModal apiDetails={apiById} />
               </div>
-              <div className="w-[calc(100%-3rem)]">
-                <CarouselProject />
-              </div>
+
+              <CarouselProject />
+
             </section>
             <EvaluationSection
               apiId={apiById.id}

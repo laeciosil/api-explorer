@@ -12,7 +12,7 @@ function MenuDropdownCategories() {
   };
   return (
     <Popover className="relative text-base">
-      <Popover.Button className="flex items-center gap-1 hover:text-light-secondary">
+      <Popover.Button className="flex items-center gap-1 hover:text-light-secondary dark:hover:text-light-secondary text-light-text dark:text-dark-text" title="Menu dropdown de categorias">
         Categorias
         <CaretDown />
       </Popover.Button>
@@ -22,8 +22,9 @@ function MenuDropdownCategories() {
             <button
               type="button"
               key={category.id}
-              className="flex items-center py-2 pl-3 pr-4 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 snap-start"
+              className="flex items-center py-2 pl-3 pr-4 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 snap-start text-light-text dark:text-dark-text"
               onClick={() => changeCategory(category.name)}
+              title={`Categoria ${category.name}`}
             >
               {category.name}
             </button>

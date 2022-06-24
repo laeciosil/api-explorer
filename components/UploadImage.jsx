@@ -6,14 +6,9 @@ export function UploadImage({ handleDrop, path }) {
       {({
         getInputProps,
       }) => (
-        <label style={{
-          border: '1px dashed #ddd',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          padding: '7px',
-        }}
+        <label
+          className="border-[1px] border-[#6B7280] text-light-text dark:text-dark-text border-dashed rounded-md cursor-pointer p-[6px]"
         >
-
           <input
             {...getInputProps()}
           />

@@ -5,7 +5,11 @@ function NewProjectForm({
 }) {
   return (
     <form className="w-full flex flex-col space-y-3">
-      <label forhtml="url" className="flex w-full flex-wrap gap-2 items-center">
+      <label
+        forhtml="url"
+        className="pt-4 flex w-full flex-wrap gap-2 items-center text-light-text
+        dark:text-dark-text"
+      >
         Endereço do repositório:
         <input
           type="url"
@@ -16,7 +20,11 @@ function NewProjectForm({
           required
         />
       </label>
-      <label forhtml="url_deploy" className="flex w-full flex-wrap gap-2 items-center">
+      <label
+        forhtml="url_deploy"
+        className="flex w-full flex-wrap gap-2 items-center text-light-text
+        dark:text-dark-text"
+      >
         Endereço do seu site (opcional):
         <input
           type="url"
@@ -27,11 +35,13 @@ function NewProjectForm({
           required
         />
       </label>
-      <label htmlFor="upload">
+      <label
+        htmlFor="upload"
+        className="text-light-text dark:text-dark-text"
+      >
         Foto de capa:
       </label>
       <UploadImage handleDrop={handleDrop} path={path} />
-
     </form>
   );
 }

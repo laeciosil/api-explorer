@@ -15,10 +15,14 @@ function EvaluationSection() {
   return (
     evaluations && (
       <section className="w-full flex flex-col justify-center items-center space-y-5">
-        <h2 className="w-full border-b-[1px] pb-1 dark:border-gray-700 font-bold text-xl">Avaliações</h2>
+        <h2
+          className="w-full border-b-[1px] pb-1 dark:border-gray-700 font-bold text-xl text-light-text dark:text-dark-text"
+        >
+          Avaliações
+        </h2>
         <div className="w-full flex items-center">
           <div className="space-y-3 grow">
-            <p className="text-6xl font-bold">{rating.toFixed(1)}</p>
+            <p className="md:text-6xl text-5xl font-bold text-light-text dark:text-dark-text">{rating.toFixed(1)}</p>
             <StarRating rating={rating} />
             <p className="text-base text-[#979899] font-normal">{`baseada em ${evaluations.length} avaliações`}</p>
           </div>
@@ -30,7 +34,11 @@ function EvaluationSection() {
           </div>
         </div>
         {evaluations.length === 0 ? (
-          <p className="w-full text-center bg-light-primary dark:bg-dark-primary p-5 rounded-md">Não há avaliações para essa api.</p>
+          <p
+            className="w-full text-center bg-light-primary dark:bg-dark-primary p-5 rounded-md text-light-text dark:text-dark-text shadow-md ring-1 ring-black ring-opacity-5"
+          >
+            Não há avaliações para essa api.
+          </p>
         ) : (
           <div className="w-full flex flex-col gap-4">
             {evaluations.map((evaluation) => (
