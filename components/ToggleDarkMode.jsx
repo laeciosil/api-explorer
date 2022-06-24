@@ -1,57 +1,19 @@
-// import Switch from 'react-switch';
-// import { Sun, Moon } from 'phosphor-react';
+import { Sun, MoonStars } from 'phosphor-react';
 import { useTheme } from 'next-themes';
 
 function ToggleDarkMode() {
   const { theme, setTheme } = useTheme();
   return (
-    <>
-      <label className="switch">
-
-        <input
-          onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          type="checkbox"
-          checked={theme === 'dark'}
-        />
-        <span className="slider round" />
-      </label>
-      {/* <Switch
+    <label className="swap swap-rotate">
+      <input
+        type="checkbox"
+        className="hidden"
         onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-        checked={theme === 'dark'}
-        uncheckedIcon={(
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-              color: 'orange',
-              fontSize: 20,
-              paddingRight: 2,
-            }}
-          >
-            <Sun weight="fill" />
-          </div>
-   )}
-        checkedIcon={(
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-              color: 'white',
-              fontSize: 20,
-              paddingRight: 2,
-            }}
-          >
-            <Moon weight="fill" />
-          </div>
-   )}
-        onColor="#6772E5"
-        offColor="#6772E5"
-      /> */}
-    </>
+      />
+      <MoonStars weight="bold" size={25} className="swap-on text-light-secondary" />
+      <Sun weight="bold" size={25} className="swap-off text-light-secondary" />
+
+    </label>
   );
 }
 
