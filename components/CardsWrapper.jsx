@@ -13,7 +13,7 @@ function CardsWrapper() {
     return newArr;
   }
   return (
-    <div className="col-span-3 space-y-8 pt-4">
+    <div className="col-span-1 sm:col-span-2 md:col-span-3 space-y-8 pt-3">
       {isLoading ? <Loading /> : (
         <>
           <div>
@@ -36,12 +36,18 @@ function CardsWrapper() {
           </div>
           <section>
             <div
-              className="grid grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
             >
-              {filteredApi().length === 0 ? (<p className="col-span-3 text-base text-center">Nenhum resultado encontrado.</p>) : (
+              {filteredApi().length === 0 ? (
+                <p
+                  className="med:col-span-2 col-span-3 text-base text-center text-light-text dark:text-dark-text"
+                >
+                  Nenhum resultado encontrado.
+                </p>
+              ) : (
                 filteredApi().map((api) => (
                   <div key={api.id} className="hover:scale-105 transition-all cursor-pointer">
-                    <CardApi api={api} numberLength={30} />
+                    <CardApi api={api} lengthTitle={24} />
                   </div>
                 )))}
             </div>

@@ -8,7 +8,7 @@ function CardApi({ api, lengthTitle }) {
     <Link href={`/api-details/${api.id}`}>
       <div
         style={{ cursor: 'pointer' }}
-        className="mr-2 p-3 bg-light-primary rounded-md dark:bg-dark-primary shadow-lg ring-1 ring-black ring-opacity-5 space-y-2"
+        className="p-3 bg-light-primary rounded-md dark:bg-dark-primary shadow-lg ring-1 ring-black ring-opacity-5 space-y-2"
       >
         <h2 className="text-lg font-bold text-light-text dark:text-dark-text">
           {api.name.length > lengthTitle
