@@ -5,20 +5,16 @@ import CardProject from './CardProject';
 export default function CarouselProject() {
   const { apiById } = useData();
 
-  // const randomAPi = () => {
-  //   const apiArr = [];
-  //   for (let index = 0; index < 5; index++) {
-  //     apiArr.push(apis[Math.floor(Math.random() * apis.length)]);
-  //   };
-  //   return apiArr;
-  // }
   const settings = {
-    // className: "center",
+    // className: 'center',
     // centerMode: true,
-    // centerPadding: "60px",
+    // centerPadding: '60px',
     dots: true,
-    infinite: true,
+    arrows: true,
+    infinite: false,
     speed: 500,
+    variableWidth: true,
+    adaptiveHeight: true,
     slidesToShow: apiById.fronts.length < 3 ? apiById.fronts.length : 3,
     slidesToScroll: 1,
     // initialSlide: 0,
@@ -35,16 +31,24 @@ export default function CarouselProject() {
       {
         breakpoint: 600,
         settings: {
+          // centerMode: true,
+          variableWidth: true,
+          infinite: false,
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2,
+          arrows: false,
+          // initialSlide: 2,
         },
       },
       {
         breakpoint: 480,
         settings: {
+          // centerMode: true,
+          variableWidth: true,
+          infinite: false,
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false,
         },
       },
     ],
@@ -52,17 +56,21 @@ export default function CarouselProject() {
 
   return (
     apiById.fronts.length ? (
-      <Slider {...settings}>
-        {/* slider está mostrando os fronts duplicados. */}
-        {apiById && apiById.fronts.map((front) => (
-          <div key={front} className="cursor-pointer">
-            <CardProject front={front} />
-          </div>
-        ))}
-
-      </Slider>
+      <div className="md:w-full md:pl-0 w-screen pl-4">
+        <Slider {...settings}>
+          {apiById && apiById.fronts.map((front) => (
+            <div key={front} className="p-[2px]">
+              <CardProject front={front} />
+            </div>
+          ))}
+        </Slider>
+      </div>
     ) : (
-      <p className="w-full text-center bg-light-primary dark:bg-dark-primary p-5 rounded-md">Não há projetos para essa api.</p>
+      <p
+        className="w-full text-center text-light-text dark:text-dark-text bg-light-primary dark:bg-dark-primary p-5 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
+      >
+        Não há projetos para essa api.
+      </p>
     )
   );
 }
