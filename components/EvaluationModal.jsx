@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { X } from 'phosphor-react';
 import { toast } from 'react-toastify';
 import { useSession, signIn } from 'next-auth/react';
@@ -20,23 +20,38 @@ export default function EvaluationModal() {
   const { setEvaluations, apiById } = useData();
   const { evaluations } = useData();
   const { user } = useUser();
+
   async function closeModal() {
     destroyCookie(null, 'isCreatingEvaluation', {
       path: '/',
     });
     setIsOpen(false);
+    setUserRating({});
+    setRating(0);
+    setMessage('');
   }
 
-  function openModal(ratingExists) {
+  function setEvaluationByUser() {
+    const ratingExists = evaluations.find(({ user_id: id }) => id === user.id) || {};
+    setUserRating(ratingExists);
     setRating(ratingExists.rating || 0);
     setMessage(ratingExists.message || '');
+  }
+
+  function openModal() {
+    setIsOpen(true);
+    setEvaluationByUser();
+  }
+
+  function verifySession() {
     if (session) {
-      setIsOpen(true);
+      openModal();
     } else {
       setCookie(null, 'isCreatingEvaluation', 'true', { maxAge: 60 * 60, path: '/' });
       signIn('github');
     }
   }
+
   async function getEvaluations() {
     const response = await api.get(`ratings/by-api/${apiById.id}`);
     setEvaluations(response.data);
@@ -64,20 +79,22 @@ export default function EvaluationModal() {
     }
   }
 
-  if (user && !userRating.rating) {
-    const ratingExists = evaluations.find(({ user_id: id }) => id === user.id) || {};
-    setUserRating(ratingExists);
-    if (isCreatingEvaluation) {
-      openModal(ratingExists);
+  useEffect(() => {
+    if (isCreatingEvaluation && user) {
+      openModal();
+      return;
     }
-  }
+    if (user && evaluations) {
+      setEvaluationByUser();
+    }
+  }, [user, evaluations]);
 
   const isDisabled = userRating && rating === userRating.rating && message === userRating.message;
   return (
     <>
       <button
         type="button"
-        onClick={() => openModal(userRating)}
+        onClick={verifySession}
         className="rounded-md cursor-pointer py-2 px-7 border-2 border-light-secondary text-base text-light-secondary hover:bg-light-secondary hover:text-dark-text transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-light-primary dark:focus-visible:ring-offset-dark-primary focus-visible:ring-light-secondary focus-visible:ring-opacity-50"
       >
         {userRating.rating ? 'Editar' : 'Avaliar'}
