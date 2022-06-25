@@ -123,7 +123,7 @@ export default function Home() {
                   </h3>
                   <div className="flex items-center justify-end">
                     <EditPhotoModal front={front} />
-                    <DeleteFrontModal id={front.id} />
+                    <DeleteFrontModal id={front.id} url={front.url_img} />
                   </div>
                 </div>
               )) : (

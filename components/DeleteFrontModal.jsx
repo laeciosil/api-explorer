@@ -5,9 +5,20 @@ import { toast } from 'react-toastify';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
 
-export default function DeleteFrontModal({ id }) {
+export default function DeleteFrontModal({ id, url }) {
   const { token, getProjects } = useUser();
   const [isOpen, setIsOpen] = useState(false);
+
+  async function deletePhoto() {
+    if (url.includes('amazonaws.com')) {
+      const key = url.split('com/')[1];
+      await api.delete(`/fronts/image/${id}?Key=${key}`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+    }
+  }
 
   function closeModal() {
     setIsOpen(false);
@@ -22,6 +33,7 @@ export default function DeleteFrontModal({ id }) {
     const theme = localStorage.getItem('theme') || 'light';
     try {
       toast.info('Aguarde...', { theme, autoClose: 500 });
+      await deletePhoto();
       await api.delete(`/fronts/${id}`, {
         headers: {
           Authorization: `bearer ${token}`,
