@@ -9,7 +9,6 @@ import { Widget } from '../components/FeedbackWidget/Widget';
 import { useUser } from '../hooks/useUser';
 import EditApiModal from '../components/EditApiModal';
 import DeleteApiModal from '../components/DeleteApiModal';
-// import { api } from '../services';
 import EditPhotoModal from '../components/EditPhotoModal ';
 import DeleteFrontModal from '../components/DeleteFrontModal';
 
@@ -120,7 +119,7 @@ export default function Home() {
                       : front.name}
                   </h3>
                   <div className="flex items-center justify-end">
-                    <EditPhotoModal />
+                    <EditPhotoModal front={front} />
                     <DeleteFrontModal />
                   </div>
                 </div>

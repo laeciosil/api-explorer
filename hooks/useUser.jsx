@@ -19,7 +19,7 @@ export function UserProvider({ children }) {
     }
   };
 
-  const getApis = async (jwtToken) => {
+  const getProjects = async (jwtToken) => {
     await validateToken(jwtToken);
 
     const response = await api.get('/users/projects', {
@@ -42,7 +42,7 @@ export function UserProvider({ children }) {
       setUser(userData);
       setToken(response.data.jwt_token);
       if (response.data.jwt_token) {
-        getApis(response.data.jwt_token);
+        getProjects(response.data.jwt_token);
       }
     }
   };
@@ -51,7 +51,7 @@ export function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         getJWTToken,
-        getApis,
+        getProjects,
         user,
         projects,
         token,
