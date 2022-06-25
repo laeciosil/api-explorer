@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://apibr.herokuapp.com/',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
