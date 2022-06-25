@@ -15,16 +15,20 @@ function CardProject({ front }) {
         </p>
         <div className="flex items-center">
           <a
-            href="/"
+            href={front.url_repo}
+            target="_blank"
             className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
             title="Ir para o repositório"
+            rel="noreferrer"
           >
             <AiFillGithub size={20} />
           </a>
           <a
-            href="/"
+            href={front.url_deploy || '#'}
+            target="_blank"
             className="rounded-md p-2 text-gray-400 hover:text-light-text hover:bg-gray-200 dark:hover:text-dark-text dark:hover:bg-gray-600 transition-all"
             title="Ir para o site"
+            rel="noreferrer"
           >
             <LinkSimple size={20} weight="bold" />
           </a>
