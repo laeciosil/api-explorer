@@ -1,13 +1,16 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { X, WarningCircle } from 'phosphor-react';
 import { toast } from 'react-toastify';
 
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
+import { useData } from '../hooks/useData';
 
 export default function DeleteApiModal({ id }) {
   const { token, getProjects } = useUser();
+  const { getApiById, apiById } = useData();
+
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -19,8 +22,25 @@ export default function DeleteApiModal({ id }) {
     setIsOpen(true);
   }
 
+  useEffect(() => {
+    getApiById(id);
+  }, [id]);
+  async function deletePhoto(fronts) {
+    fronts.forEach(async ({ url_img: url, id: frontId }) => {
+      if (url.includes('amazonaws.com')) {
+        const key = url.split('com/')[1];
+        await api.delete(`/fronts/image/${frontId}?Key=${key}`, {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        });
+      }
+    });
+  }
+
   async function handleDelete() {
     const theme = localStorage.getItem('theme') || 'light';
+    await deletePhoto(apiById.fronts);
     try {
       toast.info('Aguarde...', { theme, autoClose: 500 });
       await api.delete(`/apis/${id}`, {
