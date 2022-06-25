@@ -58,7 +58,7 @@ export default function Home() {
             {' '}
             e compartilhe com a comunidade.
           </h2>
-          <div className="md:w-full md:pl-0 w-screen pl-4 space-y-5">
+          <div className="md:w-full md:pl-0 w-screen pl-4 pb-7 md:pb-0 space-y-5">
             <span className="text-lg font-bold text-light-text dark:text-dark-text">Recomendações</span>
             <Carousel />
           </div>
