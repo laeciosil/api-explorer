@@ -5,7 +5,7 @@ import { Widget } from '../components/FeedbackWidget/Widget';
 
 function Search() {
   return (
-    <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden scrollbar-thumb-zinc-400 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin">
+    <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden sm:scrollbar-thumb-zinc-400 sm:dark:scrollbar-thumb-gray-600 sm:scrollbar-track-transparent sm:scrollbar-thin">
       <Header />
       <main className="w-full grow flex items-start justify-around relative bg-light-background dark:bg-dark-background ">
         <CardsContainer />

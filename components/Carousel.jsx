@@ -16,7 +16,7 @@ export default function Carousel() {
         const j = Math.floor(Math.random() * (i + 1));
         [apiList[i], apiList[j]] = [apiList[j], apiList[i]];
       }
-      setRandomApis(apiList);
+      setRandomApis(apiList.slice(0, 5));
     };
     randonApis();
   }, [apis]);

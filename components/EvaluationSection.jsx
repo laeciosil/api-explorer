@@ -38,7 +38,7 @@ function EvaluationSection() {
             {evaluations.map((evaluation) => (
               <div key={evaluation.id} className="flex items-center justify-between bg-light-primary dark:bg-dark-primary p-5 rounded-md shadow-md ring-1 ring-black ring-opacity-5">
                 <div className="grow space-y-3">
-                  <p className="text-base">{evaluation.message}</p>
+                  <p className={`text-base ${!evaluation.message.length && 'hidden'}`}>{evaluation.message}</p>
                   <p className="text-sm text-[#979899] font-bold">{`${evaluation.user_name} em ${formatDate(evaluation.updated_at)}`}</p>
                 </div>
                 <div className="flex grow-0">

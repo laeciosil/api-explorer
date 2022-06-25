@@ -35,7 +35,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden">
+    <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden sm:scrollbar-thumb-zinc-400 sm:dark:scrollbar-thumb-gray-600 sm:scrollbar-track-transparent sm:scrollbar-thin">
       <Header />
       {session && (
         <main className="w-full grow flex items-start justify-center relative bg-light-background dark:bg-dark-background">

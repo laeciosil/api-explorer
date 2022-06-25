@@ -17,7 +17,7 @@ export function FeedbackTypeStep(props) {
             key={item.type}
             type="button"
             onClick={() => feedbackTypeChanged(item.type)}
-            className="flex-1 flex flex-col items-center bg-light-background dark:bg-[#374151] rounded-lg py-5 w-24 gap-2 border-2 border-transparent hover:border-light-secondary focus:border-light-secondary focus:outline-none"
+            className="flex-1 flex flex-col items-center bg-light-background dark:bg-[#374151] rounded-lg py-5 w-20 pp:w-24 gap-2 border-2 border-transparent hover:border-light-secondary focus:border-light-secondary focus:outline-none"
             title={`Botão de feedback ${item.title}`}
           >
             <Image src={item.image.source} alt={item.image.alt} width={50} height={50} />
