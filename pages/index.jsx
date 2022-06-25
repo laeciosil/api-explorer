@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
-import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import { setCookie, parseCookies } from 'nookies';
 import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,13 +12,10 @@ export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
   const { getApis } = useData();
-  const { refresh, isCreatingApi } = parseCookies();
+  const { isCreatingApi } = parseCookies();
 
   useEffect(() => {
-    if (refresh) {
-      destroyCookie(null, 'refresh');
-      getApis();
-    }
+    getApis();
   }, []);
 
   function redirectProfile() {

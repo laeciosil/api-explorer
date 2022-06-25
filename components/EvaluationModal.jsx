@@ -73,7 +73,6 @@ export default function EvaluationModal() {
       await getEvaluations();
       closeModal();
       toast.success(response.data.message, { theme });
-      setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
     } catch (error) {
       toast.error(error.response.data.message, { theme });
     }

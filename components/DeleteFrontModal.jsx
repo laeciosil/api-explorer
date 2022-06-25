@@ -1,16 +1,36 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { X, WarningCircle } from 'phosphor-react';
+import { toast } from 'react-toastify';
+import { api } from '../services';
+import { useUser } from '../hooks/useUser';
 
-export default function DeleteFrontModal() {
+export default function DeleteFrontModal({ id }) {
+  const { token, getProjects } = useUser();
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
+    getProjects(token);
   }
 
   function openModal() {
     setIsOpen(true);
+  }
+
+  async function handleDelete() {
+    const theme = localStorage.getItem('theme') || 'light';
+    try {
+      toast.info('Aguarde...', { theme, autoClose: 500 });
+      await api.delete(`/fronts/${id}`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      closeModal();
+    } catch (error) {
+      toast.error(error.response.data.message, { theme });
+    }
   }
 
   return (
@@ -77,7 +97,7 @@ export default function DeleteFrontModal() {
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-red-600 px-4 py-3 text-sm font-medium  hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2"
-                        onClick={closeModal}
+                        onClick={handleDelete}
                       >
                         Sim, tenho certeza
                       </button>

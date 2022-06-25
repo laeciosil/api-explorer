@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { X } from 'phosphor-react';
 import { toast } from 'react-toastify';
-import { destroyCookie, parseCookies, setCookie } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
 import NewApiForm from './NewApiForm';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
@@ -46,7 +46,6 @@ export default function NewApiModal() {
       if (response.status === 201) {
         await getProjects(token);
         toast.success(response.data.message, { theme });
-        setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
         closeModal();
       }
     } catch (error) {
