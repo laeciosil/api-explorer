@@ -34,7 +34,7 @@ export default function Home() {
   if (session && isCreatingApi) redirectProfile();
 
   return (
-    <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden scrollbar-thumb-zinc-400 dark:scrollbar-thumb-gray-600  scrollbar-track-transparent scrollbar-thin">
+    <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden sm:scrollbar-thumb-zinc-400 sm:dark:scrollbar-thumb-gray-600 sm:scrollbar-track-transparent sm:scrollbar-thin">
       <Header />
       <main className="w-full grow flex items-center justify-center relative h-screen bg-light-background dark:bg-dark-background">
         <section className="py-6 w-[calc(100vw-2rem)] md:w-[48rem] space-y-10 flex flex-col justify-center items-center">
