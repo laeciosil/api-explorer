@@ -9,7 +9,7 @@ import { useUser } from '../hooks/useUser';
 
 export default function NewApiModal() {
   const { isCreatingApi } = parseCookies();
-  const { token, getApis } = useUser();
+  const { token, getProjects } = useUser();
   const [url, setUrl] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
@@ -44,7 +44,7 @@ export default function NewApiModal() {
         },
       );
       if (response.status === 201) {
-        await getApis(token);
+        await getProjects(token);
         toast.success(response.data.message, { theme });
         setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
         closeModal();

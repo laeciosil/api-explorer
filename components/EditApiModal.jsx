@@ -10,7 +10,7 @@ import EditApiForm from './EditApiForm';
 
 export default function EditApiModal({ obj }) {
   const { setEditApi } = useData();
-  const { token, getApis } = useUser();
+  const { token, getProjects } = useUser();
   const [url, setUrl] = useState('');
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [category, setCategory] = useState('');
@@ -46,7 +46,7 @@ export default function EditApiModal({ obj }) {
         },
       );
 
-      await getApis(token);
+      await getProjects(token);
       toast.success(response.data.message, { theme });
       setCookie(null, 'refresh', 'true', { maxAge: 60 * 60, path: '/' });
       closeModal();

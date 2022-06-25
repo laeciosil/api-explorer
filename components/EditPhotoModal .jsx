@@ -4,7 +4,6 @@ import { PencilSimple, X } from 'phosphor-react';
 import { toast } from 'react-toastify';
 import { api } from '../services';
 import { useUser } from '../hooks/useUser';
-import { useData } from '../hooks/useData';
 import EditPhotoForm from './EditPhotoForm';
 
 export default function EditPhotoModal({ front }) {
@@ -13,14 +12,14 @@ export default function EditPhotoModal({ front }) {
   const [photo, setPhoto] = useState({});
   const [path, setPath] = useState('Escolha uma imagem');
   const { token } = useUser();
-  const { getFrontById } = useData();
+  const { getProjects } = useUser();
   const theme = localStorage.getItem('theme') || 'light';
 
   function closeModal() {
     setIsOpen(false);
     setPhoto({});
     setPath('Escolha uma imagem');
-    getFrontById(front.id);
+    getProjects(token);
   }
 
   function openModal() {

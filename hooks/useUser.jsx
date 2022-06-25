@@ -7,7 +7,7 @@ export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [apis, setApis] = useState([]);
+  const [projects, setProjects] = useState({});
   const [token, setToken] = useState('');
   const router = useRouter();
 
@@ -19,15 +19,15 @@ export function UserProvider({ children }) {
     }
   };
 
-  const getApis = async (jwtToken) => {
+  const getProjects = async (jwtToken) => {
     await validateToken(jwtToken);
 
-    const response = await api.get('/apis/by-user', {
+    const response = await api.get('/users/projects', {
       headers: {
         Authorization: `bearer ${jwtToken}`,
       },
     });
-    return setApis(response.data);
+    return setProjects(response.data);
   };
 
   const getJWTToken = async (accessToken) => {
@@ -42,7 +42,7 @@ export function UserProvider({ children }) {
       setUser(userData);
       setToken(response.data.jwt_token);
       if (response.data.jwt_token) {
-        getApis(response.data.jwt_token);
+        getProjects(response.data.jwt_token);
       }
     }
   };
@@ -51,9 +51,9 @@ export function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         getJWTToken,
-        getApis,
+        getProjects,
         user,
-        apis,
+        projects,
         token,
       }}
     >
