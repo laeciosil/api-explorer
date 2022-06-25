@@ -14,9 +14,9 @@ import EditPhotoModal from '../components/EditPhotoModal ';
 import DeleteFrontModal from '../components/DeleteFrontModal';
 
 export default function Home() {
-  const { user, apis } = useUser();
+  const { user, projects } = useUser();
   const { data: session } = useSession();
-
+  const { apis, fronts } = projects;
   const router = useRouter();
   useEffect(
     () => {
@@ -67,32 +67,36 @@ export default function Home() {
                 </h2>
                 <NewApiModal />
               </div>
-              <p
-                className="w-full text-center text-light-text dark:text-dark-text bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
-              >
-                Não há api's cadastradas.
-              </p>
-              {apis.map((item, index) => (
+
+              {
+              apis.length ? apis.map((api) => (
                 <div
-                  key={index}
+                  key={api.id}
                   className="w-full grid grid-cols-3 md:grid-cols-4 gap-4 items-center bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
                 >
                   <h3 className="sm:col-span-1 col-span-2 font-medium text-light-text dark:text-dark-text">
-                    {item.name.length > 15
-                      ? `${item.name.slice(0, 15)}...`
-                      : item.name}
+                    {api.name.length > 15
+                      ? `${api.name.slice(0, 15)}...`
+                      : api.name}
                   </h3>
                   <div className="hidden text-center md:col-span-2 sm:col-span-1 sm:flex sm:justify-center">
                     <p className="bg-light-secondary px-1 rounded-md text-xs text-dark-text">
-                      {item.category}
+                      {api.category}
                     </p>
                   </div>
                   <div className="flex items-center justify-end">
-                    <EditApiModal obj={item} />
+                    <EditApiModal obj={api} />
                     <DeleteApiModal />
                   </div>
                 </div>
-              ))}
+              )) : (
+                <p
+                  className="w-full text-center text-light-text dark:text-dark-text bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
+                >
+                  Não há api's cadastradas.
+                </p>
+              )
+            }
             </section>
 
             <section className="w-full flex flex-col justify-center items-center space-y-5">
@@ -101,30 +105,32 @@ export default function Home() {
                   Seus projetos:
                 </h2>
               </div>
-              <p
-                className="w-full text-center text-light-text dark:text-dark-text bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
-              >
-                Não há projetos cadastrados.
-              </p>
-              {apis.map((item, index) => (
+
+              {fronts.length ? fronts.map((front) => (
                 <div
-                  key={index}
+                  key={front.id}
                   className="w-full grid grid-cols-3 md:grid-cols-4 gap-4 items-center bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
                 >
                   <div>
-                    <img src="images/explorer.png" alt="default" className="object-cover h-20 w-40 rounded-md" />
+                    <img src={front.url_img || 'images/explorer.png'} alt="default" className="object-cover h-20 w-40 rounded-md" />
                   </div>
                   <h3 className="text-light-text dark:text-dark-text text-center font-medium md:col-span-2">
-                    {item.name.length > 15
-                      ? `${item.name.slice(0, 15)}...`
-                      : item.name}
+                    {front.name.length > 15
+                      ? `${front.name.slice(0, 15)}...`
+                      : front.name}
                   </h3>
                   <div className="flex items-center justify-end">
                     <EditPhotoModal />
                     <DeleteFrontModal />
                   </div>
                 </div>
-              ))}
+              )) : (
+                <p
+                  className="w-full text-center text-light-text dark:text-dark-text bg-light-primary dark:bg-dark-primary p-4 rounded-md shadow-md ring-1 ring-black ring-opacity-5"
+                >
+                  Não há projetos cadastrados.
+                </p>
+              )}
             </section>
           </section>
         </main>

@@ -7,7 +7,7 @@ export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [apis, setApis] = useState([]);
+  const [projects, setProjects] = useState({});
   const [token, setToken] = useState('');
   const router = useRouter();
 
@@ -22,12 +22,12 @@ export function UserProvider({ children }) {
   const getApis = async (jwtToken) => {
     await validateToken(jwtToken);
 
-    const response = await api.get('/apis/by-user', {
+    const response = await api.get('/users/projects', {
       headers: {
         Authorization: `bearer ${jwtToken}`,
       },
     });
-    return setApis(response.data);
+    return setProjects(response.data);
   };
 
   const getJWTToken = async (accessToken) => {
@@ -53,7 +53,7 @@ export function UserProvider({ children }) {
         getJWTToken,
         getApis,
         user,
-        apis,
+        projects,
         token,
       }}
     >
