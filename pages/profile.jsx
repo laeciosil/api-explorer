@@ -13,7 +13,9 @@ import EditPhotoModal from '../components/EditPhotoModal ';
 import DeleteFrontModal from '../components/DeleteFrontModal';
 
 export default function Home() {
-  const { user, projects } = useUser();
+  const {
+    user, projects, getProjects, token,
+  } = useUser();
   const { data: session } = useSession();
   const { apis, fronts } = projects;
   const router = useRouter();
@@ -22,6 +24,7 @@ export default function Home() {
       if (!session) {
         router.push('/');
       }
+      getProjects(token);
     },
     [],
   );
@@ -120,7 +123,7 @@ export default function Home() {
                   </h3>
                   <div className="flex items-center justify-end">
                     <EditPhotoModal front={front} />
-                    <DeleteFrontModal />
+                    <DeleteFrontModal id={front.id} />
                   </div>
                 </div>
               )) : (
