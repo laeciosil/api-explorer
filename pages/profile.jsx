@@ -85,7 +85,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center justify-end">
                     <EditApiModal obj={api} />
-                    <DeleteApiModal />
+                    <DeleteApiModal id={api.id} />
                   </div>
                 </div>
               )) : (
