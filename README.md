@@ -12,24 +12,25 @@ Projeto realizado durante o curso de formação fullstack da Trybe que tem o obj
 ## Referência
 
  - [Repositório backend](https://github.com/ApiExplorer-br/ApiExplorer-api)
-
+#
 ## Variáveis de Ambiente
 
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env.local
-
+#
 `NEXT_PUBLIC_API_URL=` endereço da sua API
-
+#
 Códigos gerados no site: https://github.com/settings/developers \
 `GITHUB_CLIENT_ID=`\
 `GITHUB_CLIENT_SECRET=`
-
+#
 Código gerado no site: https://www.md5hashgenerator.com/ \
 `JWT_SECRET=` 
+#
+https://next-auth.js.org/configuration/options 
 
-https://next-auth.js.org/configuration/options\
 `NEXTAUTH_URL=`\
 `NEXT_PUBLIC_REDIRECT_URL=`
-
+#
 
 ## Feedback
 
