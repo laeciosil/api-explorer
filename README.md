@@ -36,7 +36,7 @@ https://next-auth.js.org/configuration/options
 
 Se você tiver algum feedback, por favor nos deixe saber por meio da página seção feedback.
 
-
+#
 ## Rodando localmente
 
 Clone o projeto
@@ -70,7 +70,7 @@ Inicie o servidor
 
 **Back-end:** Node, Express
 
-
+#
 ## Autores
 
 - [@Laecio](https://github.com/Laecio12)
