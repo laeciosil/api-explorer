@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden sm:scrollbar-thumb-zinc-400 sm:dark:scrollbar-thumb-gray-600 sm:scrollbar-track-transparent sm:scrollbar-thin">
-      <Header />
+      <Header title="Perfil | ApiExplorer" description="Página de perfil" />
       {session && (
         <main className="w-full grow flex items-start justify-center relative bg-light-background dark:bg-dark-background">
           <section className="container w-[calc(100vw-2rem)] md:w-[45rem] my-9 space-y-5 flex flex-col justify-center items-center">
