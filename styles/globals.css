@@ -36,3 +36,9 @@ a {
 .Toastify__toast-theme--dark { 
   --toastify-color-dark: rgb(17 24 39);
 }
+
+.swap>* {
+  transition-duration: .3s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-property: transform, opacity;
+}
