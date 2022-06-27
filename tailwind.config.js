@@ -37,6 +37,6 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('flowbite/plugin'),
     require('tailwind-scrollbar'),
-    require('daisyui'),
+    // require('daisyui'),
   ],
 };

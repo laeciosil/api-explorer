@@ -64,10 +64,17 @@ export default function MenuMobile() {
                 </button>
                 <InputSearch />
               </Dialog.Title>
-              <div className="-mt-20 h-full flex flex-col items-center justify-center gap-20">
-                <a href="/" className="cursor-pointer text-light-text dark:text-dark-text hover:text-light-secondary transition-all">Home</a>
-                <MenuDropdownCategories />
-                <div className="flex gap-4 items-center">
+              <div className="-mt-20 h-full flex flex-col items-center justify-center divide-y dark:divide-gray-600">
+                <a
+                  href="/"
+                  className="pb-10 cursor-pointer text-light-text dark:text-dark-text hover:text-light-secondary transition-all"
+                >
+                  Home
+                </a>
+                <div className="py-10 px-4 flex justify-center">
+                  <MenuDropdownCategories />
+                </div>
+                <div className="pr-5 pt-10 flex gap-4 items-center justify-center">
                   <MenuDropdownLogin />
                   <ToggleDarkMode />
                 </div>
