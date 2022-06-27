@@ -62,7 +62,7 @@ export default function MenuMobile() {
                 >
                   <X weight="bold" size={25} className="text-light-secondary" />
                 </button>
-                <InputSearch />
+                <InputSearch closeModal={closeModal} />
               </Dialog.Title>
               <div className="-mt-20 h-full flex flex-col items-center justify-center divide-y dark:divide-gray-600">
                 <a
@@ -72,7 +72,7 @@ export default function MenuMobile() {
                   Home
                 </a>
                 <div className="py-10 px-4 flex justify-center">
-                  <MenuDropdownCategories />
+                  <MenuDropdownCategories closeModal={closeModal} />
                 </div>
                 <div className="pr-5 pt-10 flex gap-4 items-center justify-center">
                   <MenuDropdownLogin />

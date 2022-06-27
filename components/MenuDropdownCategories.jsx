@@ -3,13 +3,15 @@ import { Popover } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import { useData } from '../hooks/useData';
 
-function MenuDropdownCategories() {
+function MenuDropdownCategories({ closeModal }) {
   const { categories, setFilterAPi } = useData();
   const router = useRouter();
   const changeCategory = (value) => {
     setFilterAPi({ type: 'category', value });
     router.push('/search');
+    if (closeModal) closeModal();
   };
+
   return (
     <Popover className="relative text-base">
       <Popover.Button className="flex items-center gap-1 hover:text-light-secondary dark:hover:text-light-secondary text-light-text dark:text-dark-text" title="Menu dropdown de categorias">
