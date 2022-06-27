@@ -40,7 +40,6 @@ export function DataProvider({ children }) {
   async function getFrontById(id) {
     const response = await api.get(`/fronts/${id}`);
     setFrontById(response.data[0]);
-    // setEvaluations(response.data.evaluations);
   }
 
   return (

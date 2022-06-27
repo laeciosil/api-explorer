@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
-import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import { setCookie, parseCookies } from 'nookies';
 import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,13 +12,10 @@ export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
   const { getApis } = useData();
-  const { refresh, isCreatingApi } = parseCookies();
+  const { isCreatingApi } = parseCookies();
 
   useEffect(() => {
-    if (refresh) {
-      destroyCookie(null, 'refresh');
-      getApis();
-    }
+    getApis();
   }, []);
 
   function redirectProfile() {
@@ -35,7 +32,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden sm:scrollbar-thumb-zinc-400 sm:dark:scrollbar-thumb-gray-600 sm:scrollbar-track-transparent sm:scrollbar-thin">
-      <Header />
+      <Header title="Início | ApiExplorer" description="Melhores api's públicas para seu projeto." />
       <main className="w-full grow flex items-center justify-center relative h-screen bg-light-background dark:bg-dark-background">
         <section className="py-6 w-[calc(100vw-2rem)] md:w-[48rem] space-y-10 flex flex-col justify-center items-center">
           <h1 className="text-center md:text-6xl text-4xl font-bold text-light-text dark:text-dark-text">

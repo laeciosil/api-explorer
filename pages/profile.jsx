@@ -13,7 +13,9 @@ import EditPhotoModal from '../components/EditPhotoModal ';
 import DeleteFrontModal from '../components/DeleteFrontModal';
 
 export default function Home() {
-  const { user, projects } = useUser();
+  const {
+    user, projects, getProjects, token,
+  } = useUser();
   const { data: session } = useSession();
   const { apis, fronts } = projects;
   const router = useRouter();
@@ -22,6 +24,7 @@ export default function Home() {
       if (!session) {
         router.push('/');
       }
+      getProjects(token);
     },
     [],
   );
@@ -33,7 +36,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden sm:scrollbar-thumb-zinc-400 sm:dark:scrollbar-thumb-gray-600 sm:scrollbar-track-transparent sm:scrollbar-thin">
-      <Header />
+      <Header title="Perfil | ApiExplorer" description="Página de perfil" />
       {session && (
         <main className="w-full grow flex items-start justify-center relative bg-light-background dark:bg-dark-background">
           <section className="container w-[calc(100vw-2rem)] md:w-[45rem] my-9 space-y-5 flex flex-col justify-center items-center">
@@ -85,7 +88,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center justify-end">
                     <EditApiModal obj={api} />
-                    <DeleteApiModal />
+                    <DeleteApiModal id={api.id} />
                   </div>
                 </div>
               )) : (
@@ -120,7 +123,7 @@ export default function Home() {
                   </h3>
                   <div className="flex items-center justify-end">
                     <EditPhotoModal front={front} />
-                    <DeleteFrontModal />
+                    <DeleteFrontModal id={front.id} url={front.url_img} />
                   </div>
                 </div>
               )) : (

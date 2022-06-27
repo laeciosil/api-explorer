@@ -6,9 +6,6 @@ export default function CarouselProject() {
   const { apiById } = useData();
 
   const settings = {
-    // className: 'center',
-    // centerMode: true,
-    // centerPadding: '60px',
     dots: true,
     arrows: true,
     infinite: false,
@@ -17,7 +14,6 @@ export default function CarouselProject() {
     adaptiveHeight: true,
     slidesToShow: apiById.fronts.length < 3 ? apiById.fronts.length : 3,
     slidesToScroll: 1,
-    // initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
@@ -31,19 +27,17 @@ export default function CarouselProject() {
       {
         breakpoint: 600,
         settings: {
-          // centerMode: true,
           variableWidth: true,
           infinite: false,
           slidesToShow: 2,
           slidesToScroll: 2,
           arrows: false,
-          // initialSlide: 2,
+
         },
       },
       {
         breakpoint: 480,
         settings: {
-          // centerMode: true,
           variableWidth: true,
           infinite: false,
           slidesToShow: 1,

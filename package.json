@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "license": "MIT",
   "dependencies": {
     "@headlessui/react": "^1.6.4",
     "axios": "^0.27.2",

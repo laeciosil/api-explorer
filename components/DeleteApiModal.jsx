@@ -1,16 +1,57 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { X, WarningCircle } from 'phosphor-react';
+import { toast } from 'react-toastify';
 
-export default function DeleteApiModal() {
+import { api } from '../services';
+import { useUser } from '../hooks/useUser';
+import { useData } from '../hooks/useData';
+
+export default function DeleteApiModal({ id }) {
+  const { token, getProjects } = useUser();
+  const { getApiById, apiById } = useData();
+
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
+    getProjects(token);
   }
 
   function openModal() {
     setIsOpen(true);
+  }
+
+  useEffect(() => {
+    getApiById(id);
+  }, [id]);
+  async function deletePhoto(fronts) {
+    fronts.forEach(async ({ url_img: url, id: frontId }) => {
+      if (url.includes('amazonaws.com')) {
+        const key = url.split('com/')[1];
+        await api.delete(`/fronts/image/${frontId}?Key=${key}`, {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        });
+      }
+    });
+  }
+
+  async function handleDelete() {
+    const theme = localStorage.getItem('theme') || 'light';
+    await deletePhoto(apiById.fronts);
+    try {
+      toast.info('Aguarde...', { theme, autoClose: 500 });
+      await api.delete(`/apis/${id}`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      closeModal();
+    } catch (error) {
+      toast.error(error.response.data.message, { theme });
+    }
   }
 
   return (
@@ -77,7 +118,7 @@ export default function DeleteApiModal() {
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent text-dark-text bg-red-600 px-4 py-3 text-sm font-medium  hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2"
-                        onClick={closeModal}
+                        onClick={handleDelete}
                       >
                         Sim, tenho certeza
                       </button>

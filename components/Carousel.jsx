@@ -22,16 +22,11 @@ export default function Carousel() {
   }, [apis]);
 
   const settings = {
-    // className: "center",
-    // centerMode: true,
-    // centerPadding: "60px",
     dots: true,
-    // focusOnSelect: true,
     infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    // initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
@@ -45,19 +40,16 @@ export default function Carousel() {
       {
         breakpoint: 600,
         settings: {
-          // centerMode: true,
           variableWidth: true,
           infinite: false,
           slidesToShow: 2,
           slidesToScroll: 2,
           arrows: false,
-          // initialSlide: 2,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          // centerMode: true,
           variableWidth: true,
           infinite: false,
           slidesToShow: 1,
