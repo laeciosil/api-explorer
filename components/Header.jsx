@@ -11,7 +11,8 @@ function Header({ title, description }) {
     <header className="grow-0 w-full py-5 bg-light-primary dark:bg-dark-primary flex items-center justify-center border-b-2 border-[#374151] border-opacity-10 dark:border-opacity-70">
       <Head>
         <title>{title}</title>
-        <meta name="description " content={description} />
+        <meta charset="utf-8" />
+        <meta name="Description" CONTENT={description} />
         <meta property="og:title" content={title} />
         <meta
           property="og:description"

@@ -2,16 +2,22 @@ import { MagnifyingGlass } from 'phosphor-react';
 import { useRouter } from 'next/router';
 import { useData } from '../hooks/useData';
 
-function InputSearch() {
+function InputSearch({ closeModal }) {
   const router = useRouter();
   const { setFilterAPi } = useData();
   const changeName = ({ target: { value } }) => {
     setFilterAPi({ type: 'name', value });
   };
+
   function pressEnter({ keyCode }) {
     if (keyCode === 13) {
       router.push('/search');
+      if (closeModal) closeModal();
     }
+  }
+  function searchApi() {
+    router.push('/search');
+    if (closeModal) closeModal();
   }
   return (
     <div className="w-full max-w-xl relative flex">
@@ -25,7 +31,7 @@ function InputSearch() {
       <button
         type="button"
         className="absolute right-3 top-[9px] text-light-secondary"
-        onClick={() => router.push('/search')}
+        onClick={searchApi}
       >
         <MagnifyingGlass weight="bold" size={25} />
       </button>
