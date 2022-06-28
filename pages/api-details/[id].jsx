@@ -8,6 +8,7 @@ import NewProjectModal from '../../components/NewProjectModal';
 import { Widget } from '../../components/FeedbackWidget/Widget';
 import CarouselProject from '../../components/CarouselProject';
 import { useData } from '../../hooks/useData';
+import DetailsShimmer from '../../components/ShimmerLoading/DetailsShimmer';
 
 function ApiDetails() {
   const router = useRouter();
@@ -23,6 +24,7 @@ function ApiDetails() {
     getApiDetails();
   }, [id]);
 
+  if (!apiById) return <DetailsShimmer />;
   return (
     apiById && (
       <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden sm:scrollbar-thumb-zinc-400 sm:dark:scrollbar-thumb-gray-600 sm:scrollbar-track-transparent sm:scrollbar-thin">

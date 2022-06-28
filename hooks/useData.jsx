@@ -16,9 +16,9 @@ export function DataProvider({ children }) {
   const [evaluations, setEvaluations] = useState([]);
 
   async function getApis() {
-    setIsLoading(true);
+    // setIsLoading(true);
     const response = await api.get('/apis');
-    setIsLoading(false);
+    // setIsLoading(false);
     setApis(response.data);
   }
 

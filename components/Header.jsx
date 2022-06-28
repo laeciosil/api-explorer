@@ -27,12 +27,14 @@ function Header({ title, description }) {
         <div className="hidden w-full max-w-xl lg:flex">
           <InputSearch />
         </div>
-        <div className="hidden lg:flex gap-5 items-center">
+        <div className="relative hidden lg:flex gap-5 items-center justify-between">
           <MenuDropdownCategories />
           <MenuDropdownLogin />
           <ToggleDarkMode />
         </div>
-        <MenuMobile />
+        <div className="lg:hidden">
+          <MenuMobile />
+        </div>
       </section>
     </header>
   );

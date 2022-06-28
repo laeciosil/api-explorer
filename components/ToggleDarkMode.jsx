@@ -13,14 +13,14 @@ function ToggleDarkMode() {
   }
 
   return (
-    <label className="swap relative cursor-pointer">
+    <label className="swap cursor-pointer">
       <input
         type="checkbox"
         className="hidden"
         onChange={toggleTheme}
       />
-      <Sun weight="bold" size={25} className={`${selectedTheme === 'light' ? '-rotate-45' : 'opacity-0'} absolute -top-3 left-0 text-light-secondary`} />
-      <MoonStars weight="bold" size={25} className={`${selectedTheme === 'dark' ? '' : 'opacity-0'} absolute -top-3 left-0   text-light-secondary`} />
+      <Sun weight="bold" size={25} className={`${selectedTheme === 'light' ? '-rotate-45' : 'opacity-0'} absolute top-1 -right-5 text-light-secondary`} />
+      <MoonStars weight="bold" size={25} className={`${selectedTheme === 'dark' ? '' : 'opacity-0'} absolute top-1 -right-5  text-light-secondary`} />
     </label>
   );
 }

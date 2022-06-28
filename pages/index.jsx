@@ -7,11 +7,12 @@ import Footer from '../components/Footer';
 import Carousel from '../components/Carousel';
 import { Widget } from '../components/FeedbackWidget/Widget';
 import { useData } from '../hooks/useData';
+import IndexShimmer from '../components/ShimmerLoading/IndexShimmer';
 
 export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
-  const { getApis } = useData();
+  const { getApis, apis, categories } = useData();
   const { isCreatingApi } = parseCookies();
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function Home() {
 
   if (session && isCreatingApi) redirectProfile();
 
+  if (!apis.length || !categories.length) return <IndexShimmer />;
   return (
     <div className="flex flex-col w-screen h-screen bg-light-background dark:bg-dark-background overflow-x-hidden sm:scrollbar-thumb-zinc-400 sm:dark:scrollbar-thumb-gray-600 sm:scrollbar-track-transparent sm:scrollbar-thin">
       <Header title="Início | ApiExplorer" description="Melhores api's públicas para seu projeto." />
@@ -64,5 +66,6 @@ export default function Home() {
       <Widget />
       <Footer />
     </div>
+
   );
 }
