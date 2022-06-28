@@ -74,7 +74,7 @@ export default function MenuMobile() {
                 <div className="py-10 px-4 flex justify-center">
                   <MenuDropdownCategories closeModal={closeModal} />
                 </div>
-                <div className="pr-5 pt-10 flex gap-4 items-center justify-center">
+                <div className="relative pr-5 pt-10 flex gap-4 items-center justify-center">
                   <MenuDropdownLogin />
                   <ToggleDarkMode />
                 </div>
